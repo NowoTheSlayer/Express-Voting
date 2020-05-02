@@ -2,7 +2,7 @@
   $hostName = "localhost";
   $username = "root";
   $password = "";
-  $dbname = "quickvote";
+  $dbname = "expressvote";
 
   $db = new mysqli($hostName, $username, $password, $dbname);
   if (mysqli_connect_errno()){
@@ -11,7 +11,7 @@
   }
 
   session_start();
-  define('BASEURL', $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/');
+	require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/config.php';
 	require_once BASEURL.'helpers/helpers.php';
 
 

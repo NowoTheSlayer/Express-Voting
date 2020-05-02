@@ -1,4 +1,5 @@
-    <nav id="sidebar" class="active">
+    <!-- <nav id="sidebar" class="active"> -->
+    <nav id="sidebar">
       <h1><a href="index.php" class="logo">E-V</a></h1>
       <ul class="list-unstyled components mb-5">
         <li class="active">
@@ -11,10 +12,10 @@
           <a href="#candidateSubmenu" data-toggle="collapse" aria-expanded="false"><span class="fa fa-users"></span> Candidates <i class="fa fa-arrow-down"></i></a>
           <ul class="collapse list-unstyled" id="candidateSubmenu">
             <li>
-              <a href="candidates.php">Add Candidate</a>
+              <a href="candidates.php?add=1">Add Candidate</a>
             </li>
             <li>
-              <a href="#">View Candidates</a>
+              <a href="candidates.php">View Candidates</a>
             </li>
           </ul>
         </li>

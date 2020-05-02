@@ -5,11 +5,18 @@
   include 'views/navigation.php';
   
  
+  // DELETE CANDIDATE
+  if (isset($_GET['delete'])) {
+    $id = sanitize($_GET['delete']);
+    $db->query("UPDATE candidates SET deleted = 1 WHERE id = '$id'");
+    header('Location: candidates.php');
+    $_SESSION['success_flash'] = 'Candidate has been deleted';
+  }
+
 
   // DECLARATIONS
   $i = 1;
   $dbpath ='';
-
 
 
 	if (isset($_GET['add']) || isset($_GET['edit'])) {
@@ -29,6 +36,12 @@
 			$edit_id = (int)$_GET['edit'];
 			$candQ = $db->query("SELECT * FROM candidates WHERE id = '$edit_id'");
       $candidate = mysqli_fetch_assoc($candQ);
+      if (isset($_GET['delete_image'])) {
+        $image_url = $_SERVER['DOCUMENT_ROOT'].$candidate['image']; echo $image_url;
+        unlink($image_url);
+        $db->query("UPDATE candidates SET image = '' WHERE id = '$edit_id'");
+        header('Location: candidates.php?edit='.$edit_id);
+      }
       
 
       $position = isset($_POST['position']) && !empty($_POST['position'])?ucfirst(sanitize($_POST['position'])):$candidate['position'];
@@ -89,12 +102,16 @@
           move_uploaded_file($tmpLoc,$uploadPath);
         }
         $sql_DB = "INSERT INTO candidates (position, firstname, lastname, level, gender, image, deleted) VALUES ('$position', '$firstname', '$lastname', '$level', '$gender', '$dbpath', '$zero')";
-        $_SESSION['success_flash'] = 'Candidate has been added';
+        // $_SESSION['success_flash'] = 'Candidate has been added';
+        $updated = 'added';
 
         if (isset($_GET['edit'])) {
           $sql_DB = "UPDATE candidates SET position = '$position', firstname = '$firstname', lastname = '$lastname', level = '$level', gender = '$gender', image = '$dbpath', deleted = '$zero' WHERE  id = '$edit_id'";
-          $_SESSION['success_flash'] = 'Candidate has been updated';
+          $updated = 'updated';
+          // $_SESSION['success_flash'] = 'Candidate has been updated';
         }
+
+        $_SESSION['success_flash'] = 'Candidate has been '.$updated;
 
         $db->query($sql_DB);
         header('Location: candidates.php');
@@ -103,24 +120,21 @@
 
 ?>
 
-
-
-
-
-  <div class="container font-weight-bold">
+  <div class="container font-weight-bold" style="position: relative">
     <h2 class="text-center"><?= ((isset($_GET['add']))?'Add A New':'Edit'); ?> Candidate</h2>
     <hr>
-    <form action="candidates.php?<?= ((isset($_GET['add']))?'add=1':'edit='.$edit_id) ?>" method="POST"> 
+    <form action="candidates.php?<?= ((isset($_GET['add']))?'add=1':'edit='.$edit_id) ?>" method="POST" enctype="multipart/form-data"> 
       <div class="form-group">
         <div class="row">
           <div class="col-md-4 mb-2">
-            <label>Position:</label>
+            <label>Position *:</label>
             <select id="position" name="position" class="custom-select">
               <option value=""<?= $position == ''?' selected':''; ?>></option>
               <?php 
                 $sql_post = "SELECT * FROM position";
                 $result_post = $db->query($sql_post);
                 foreach ($result_post as $cand):
+                  echo move_uploaded_file($tmpLoc,$uploadPath);
               ?>
                 <option value="<?= $cand['post']; ?>"<?= $position == $cand['post']?' selected':''; ?>><?= $cand['post']; ?></option>
                 <?php endforeach; ?>
@@ -128,17 +142,17 @@
           </div>
 
           <div class="col-md-4 mb-2">
-            <label for="firstname">First Name:</label>
+            <label for="firstname">First Name *:</label>
             <input type="text" class="form-control text-capitalize" name="firstname" id="firstname" value="<?= $firstname; ?>">
           </div>
 
           <div class="col-md-4 mb-2">
-            <label for="lastname">Last Name:</label>
+            <label for="lastname">Last Name *:</label>
             <input type="text" class="form-control text-capitalize" name="lastname" id="lastname" value="<?= $lastname; ?>">
           </div>
 
           <div class="col-md-4 mb-2">
-            <label>Level:</label>
+            <label>Level *:</label>
             <select id="level" name="level" class="custom-select">
               <option value=""<?= $level == ''?' selected':''; ?>></option>
               <option value="100"<?= $level == '100'?' selected':''; ?>>100</option>
@@ -149,7 +163,7 @@
           </div>
 
           <div class="col-md-4 mb-2">
-            <label>Gender:</label>
+            <label>Gender *:</label>
             <select id="gender" name="gender" class="custom-select">
               <option value=""<?= $gender == ''?' selected':''; ?>></option>
               <option value="Male"<?= $gender == 'Male'?' selected':''; ?>>Male</option>
@@ -159,10 +173,17 @@
 
           <div class="col-md-4 mb-2">
             <label>Custom file:</label>
+            <?php if($saved_image != ''): ?>
+              <div class="text-center">
+                <img src="<?= $saved_image; ?>" class="img-fluid" style="height:300px;" alt="Saved Image">
+              </div>
+              <a href="candidates.php?delete_image=1&edit=<?= $edit_id; ?>" class="text-danger card-link">Delete Image</a></a>
+            <?php else: ?>
             <div class="custom-file">
               <input type="file" class="custom-file-input" name="photo" id="photo">
               <label class="custom-file-label" for="photo">Upload Image</label>
             </div>
+            <?php endif; ?>
           </div>
 
           <div class="col-md-12 mb-2 clearfix mt-4">
@@ -171,7 +192,7 @@
               <button class="btn btn-success" type="submit"><?= ((isset($_GET['add']))?'<span class="fa fa-plus-circle mr-2"></span>Add':'<span class="fa fa-pen-fancy mr-2"></span>Edit'); ?> Candidate</button>
             </div>
           </div>
-          
+
         </div>
       </div>
     </form>
@@ -226,10 +247,10 @@
             <td><?= $i++; ?></td>
             <td><?= $res['position']; ?></td>
             <td><?= $res['firstname']; ?></</td>
-            <td><?= $res['lastname']; ?></</td>
+            <td><?= $res['lastname']; ?></td>
             <td><?= $res['level']; ?></td>
             <td><?= $res['gender']; ?></td>
-            <td><?= $res['image']; ?></td>
+            <td><img src="<?= $res['image']; ?>" class="img-thumbnail" style="width: 100px; height:100px;" alt="Image"></td>
             <td>
               <div class="btn-group btn-group-sm">
                 <a href="candidates.php?edit=<?= $candid_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span></a>
