@@ -14,6 +14,7 @@
 
     <script type="text/javascript" src="../dist/datatable/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../dist/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <!-- <script type="text/javascript" src="../dist/js/toastr.js"></script> -->
 
 
     <!-- HOVER ON DROPDOWN -->
@@ -33,24 +34,19 @@
     <!-- DATATABLE -->
     <script>
       $(document).ready(function() {
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+        // If you want to disable some features, use the following code.
+        // "pageLength": 5,
+        // "paging": true,
+        // "lengthChange": false,
+        // "searching": false,
+        // "ordering": true,
+        // "info": true,
+        // "autoWidth": true
+        });
       });
     </script>
 
-    <!-- If you want to disable some features, use the following code. -->
-    <!-- <script>
-    $(function () {
-      $('#dataTable').DataTable({
-        "pageLength": 3,
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true
-        });
-      });
-    </script>  -->
     <!-- DATATABLE -->
 
     <!-- CUSTOM FILE FOR CUSTOM SELECT DROPDOWN-->

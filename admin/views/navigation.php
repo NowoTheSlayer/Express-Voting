@@ -26,10 +26,10 @@
           <a href="#voterSubmenu" data-toggle="collapse" aria-expanded="false"><span class="fa fa-users"></span> Voters <i class="fa fa-arrow-down"></i></a>
           <ul class="collapse list-unstyled" id="voterSubmenu">
             <li>
-              <a href="#">Add Voter</a>
+              <a href="voters.php?add=1">Add Voter</a>
             </li>
             <li>
-              <a href="#">View Voters</a>
+              <a href="voters.php">View Voters</a>
             </li>
           </ul>
         </li>

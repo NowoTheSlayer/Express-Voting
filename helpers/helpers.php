@@ -1,6 +1,6 @@
 <?php
 	function display_errors($errors){
-		// $display = '<ul class="container-fluid mx-5 list-unstyled ">';
+		$display = '<ul class="container-fluid mx-5 list-unstyled ">';
 		$display = '<div class="container">';
 		foreach ($errors as $error){
 			$display .= '<div class="alert alert-danger alert-dismissible fade show">';
@@ -12,6 +12,20 @@
 		// $display .= '</ul>';
 		$display .= '</div>';
 		return $display;
+
+
+		// $display = '<div class="toast mt-5" data-autohide="false" style="position: absolute; top:0; right:0">';
+		// foreach ($errors as $error){
+		// 	$display .= '  <div class="toast-header">';
+		// 	$display .= '    <strong class="mr-auto text-danger">Error</strong>';
+		// 	$display .= '    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>';
+		// 	$display .= '  </div>';
+		// 	$display .= '  <div class="toast-body">';
+		// 	$display .=      $error;
+		// 	$display .=    '</div>';
+		// }
+		// $display .= '</div>';
+		// return $display;
 	}
 
 	function sanitize($dirty){

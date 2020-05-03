@@ -1,10 +1,13 @@
 <?php
-	// include Database connection file 
   require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
   include 'views/head.php';
   include 'views/navigation.php';
   
- 
+  // DECLARATIONS
+  $i = 1;
+  $dbpath ='';
+
+
   // DELETE CANDIDATE
   if (isset($_GET['delete'])) {
     $id = sanitize($_GET['delete']);
@@ -12,12 +15,7 @@
     header('Location: candidates.php');
     $_SESSION['success_flash'] = 'Candidate has been deleted';
   }
-
-
-  // DECLARATIONS
-  $i = 1;
-  $dbpath ='';
-
+ 
 
 	if (isset($_GET['add']) || isset($_GET['edit'])) {
     $position = isset($_POST['position']) && !empty($_POST['position'])?ucfirst(sanitize($_POST['position'])):'';
@@ -25,10 +23,9 @@
     $lastname = isset($_POST['lastname']) && !empty($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):'';
     $level = isset($_POST['level']) && !empty($_POST['level'])?sanitize($_POST['level']):'';
 		$gender = isset($_POST['gender']) && !empty($_POST['gender'])?ucfirst(sanitize($_POST['gender'])):'';
-    // $image = isset($_POST['image']) && !empty($_POST['image'])?sanitize($_POST['image']):'';
+
     $saved_image = '';
     $zero = 0;
-
     $errors = array();
 
     // EDIT CANDIDATE
@@ -120,8 +117,8 @@
 
 ?>
 
-  <div class="container font-weight-bold" style="position: relative">
-    <h2 class="text-center"><?= ((isset($_GET['add']))?'Add A New':'Edit'); ?> Candidate</h2>
+  <div class="container font-weight-bold">
+    <h2 class="text-center font-weight-bold"><?= ((isset($_GET['add']))?'Add A New':'Edit'); ?> Candidate</h2>
     <hr>
     <form action="candidates.php?<?= ((isset($_GET['add']))?'add=1':'edit='.$edit_id) ?>" method="POST" enctype="multipart/form-data"> 
       <div class="form-group">
@@ -134,7 +131,6 @@
                 $sql_post = "SELECT * FROM position";
                 $result_post = $db->query($sql_post);
                 foreach ($result_post as $cand):
-                  echo move_uploaded_file($tmpLoc,$uploadPath);
               ?>
                 <option value="<?= $cand['post']; ?>"<?= $position == $cand['post']?' selected':''; ?>><?= $cand['post']; ?></option>
                 <?php endforeach; ?>
@@ -172,7 +168,7 @@
           </div>
 
           <div class="col-md-4 mb-2">
-            <label>Custom file:</label>
+            <label>Custom file *:</label>
             <?php if($saved_image != ''): ?>
               <div class="text-center">
                 <img src="<?= $saved_image; ?>" class="img-fluid" style="height:300px;" alt="Saved Image">
@@ -205,7 +201,7 @@
     $result_candid = $db->query($sql_candid);
 ?>
 
-  <div class="container-fluid" style="position: relative">
+  <div class="container" style="position: relative">
     <h1 class="font-weight-bolder text-center">Candidates List</h1>
     <hr><br>
     <a href="candidates.php?add=1" class="btn btn-block btn-success"><i class="fa fa-user-plus mr-2"></i>Add Candidate</a>
