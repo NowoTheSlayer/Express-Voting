@@ -1,0 +1,138 @@
+<?php
+  require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+  include 'views/head.php';
+  include 'views/navigation.php';
+
+  $sql = "SELECT * FROM position where deleted = 0";
+  $result = $db->query($sql);
+
+	$errors = array();
+	$post_value = '';
+	$i = 1;
+
+	
+	// DELETE POSITION
+  if (isset($_GET['delete'])) {
+    $id = sanitize($_GET['delete']);
+    $db->query("UPDATE position SET deleted = 1 WHERE id = '$id'");
+    header('Location: posts.php');
+    $_SESSION['success_flash'] = 'Position has been deleted';
+  }
+
+
+	//EDIT POSITION
+	if (isset($_GET['edit'])){
+		$edit_id = (int)$_GET['edit'];
+		$edit_id = sanitize($edit_id);
+		$eresult = $db->query("SELECT * FROM position WHERE id = '$edit_id'");
+		$ePost = mysqli_fetch_assoc($eresult);
+
+		$post_value = isset($_POST['post'])?ucfirst(sanitize($_POST['post'])):$ePost['post'];
+	}
+
+
+	if (isset($_POST['add_submit'])){
+		$post = sanitize($_POST['post']);
+
+		//check if position is blank
+		if ($_POST['post'] == ''){
+			$errors[] .= 'You must enter a position.';
+		}
+
+		// check if position exists in database
+		$sql = "SELECT * FROM position WHERE post = '$post'";
+
+		if (isset($_GET['edit'])){
+			$sql = "SELECT * FROM position WHERE post = '$post' AND id != '$edit_id'";
+		}
+
+		$result = $db->query($sql);
+		$count = mysqli_num_rows($result);
+
+		if ($count > 0){
+			$errors[] .= $post. ' already exists. Please provide another position.';
+		}
+
+		//display errors
+		if(!empty($errors)){
+			echo display_errors($errors);
+		} else{
+			$sql = "INSERT INTO position (post) VALUES ('$post')";
+			$updated = 'added';
+
+			if (isset($_GET['edit'])){
+				$sql = "UPDATE position SET post = '$post' WHERE  id = '$edit_id'";
+				$updated = 'updated';
+			}
+
+			$_SESSION['success_flash'] = 'Position has been '.$updated;
+
+			$db->query($sql);
+			header('Location: posts.php');
+		}
+	}
+?>
+
+
+
+  <div class="container">
+		<h2 class="font-weight-bold text-center">Posts</h2>
+		<hr>
+		
+		<div class="d-flex justify-content-center">
+			<form class="form-inline" action="posts.php<?= isset($_GET['edit'])?'?edit='.$edit_id:'' ?>" method="POST">
+				<div class="form-group text-center">
+					<label for="post" class="mb-2 mr-sm-2 font-weight-bold"><?= isset($_GET['edit'])?'Edit':'Add A'; ?> Post :</label>
+					<div class="text-center">
+						
+						<input type="text" name="post" id="post" class="form-control text-capitalize mb-2 mr-sm-2" value="<?= $post_value; ?>">
+
+						<?= isset($_GET['edit'])?'<a href="posts.php" class="btn btn-secondary mb-2 mr-sm-2"><i class="fa fa-times-circle mr-2"></i>Cancel</a>':''; ?>
+						<button type="submit" name="add_submit" class="btn btn-success mb-2"><?= isset($_GET['edit'])?'<span class="fa fa-pen-fancy mr-2"></span>Edit':'<span class="fa fa-plus-circle mr-2"></span>Add'; ?> Post</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<hr>
+
+		<div class="table-responsive-sm">
+			<table class="table table-borderless table-striped table-hover" id="dataTable">
+				<thead>
+					<th></th>
+					<th>Brand</th>
+					<th></th>
+					<th></th>
+				</thead>
+				<tfoot>
+					<th></th>
+					<th>Brand</th>
+					<th></th>
+					<th></th>
+				</tfoot>
+
+				<tbody>
+				<?php 
+					foreach ($result as $res): 
+					$post_id = $res['id'];		
+				?>
+					<tr>
+						<td><?= $i++; ?></td>
+						<td><?= $res['post']; ?></td>
+						<td>
+							<div class="btn-group btn-group-sm">
+                <a href="posts.php?edit=<?= $post_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span></a>
+                <a href="voters.php?delete=<?= $post_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span></a>
+							</div>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+
+
+
+<?php include 'views/footer.php'; ?>

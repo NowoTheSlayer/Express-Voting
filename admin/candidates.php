@@ -128,7 +128,7 @@
             <select id="position" name="position" class="custom-select">
               <option value=""<?= $position == ''?' selected':''; ?>></option>
               <?php 
-                $sql_post = "SELECT * FROM position";
+                $sql_post = "SELECT * FROM position WHERE deleted = 0";
                 $result_post = $db->query($sql_post);
                 foreach ($result_post as $cand):
               ?>
@@ -249,6 +249,9 @@
             <td><img src="<?= $res['image']; ?>" class="img-thumbnail" style="width: 100px; height:100px;" alt="Image"></td>
             <td>
               <div class="btn-group btn-group-sm">
+                <a class="btn btn-sm btn-primary mr-2" data-toggle="modal" href="#candidate_viewmodal_<?= $candid_id; ?>"><span class="fa fa-eye"></span>
+                Open modal
+                </a>
                 <a href="candidates.php?edit=<?= $candid_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span></a>
                 <a href="candidates.php?delete=<?= $candid_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span></a>
               </div>
@@ -256,9 +259,12 @@
           </tr>
           <?php endforeach; ?>
         </tbody>
-
+        
       </table>
     </div>
   </div>
-
+  
+  
+  
+  <?php  include 'includes/candidate_viewmodal.php'; ?>
 <?php } include 'views/footer.php'; ?>

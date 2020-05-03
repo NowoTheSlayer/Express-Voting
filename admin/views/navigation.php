@@ -20,6 +20,9 @@
           </ul>
         </li>
         <li>
+          <a href="posts.php"><span class="fa fa-graduation-cap"></span> Posts</a>
+        </li>
+        <li>
           <a href="#"><span class="fa fa-sticky-note"></span> Ballot</a>
         </li>
         <li>
