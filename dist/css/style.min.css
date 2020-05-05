@@ -1,3 +1,16 @@
+body {
+  /* background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); */
+  /* background-image: linear-gradient(to right top, #ba2c2c, #ab4709, #955c00, #7b6b00, #5e7700, #597e0a, #538415, #4b8b1f, #669025, #7d952e, #929a39, #a59f46); */
+  /* background-image: radial-gradient(circle, #f3c2c2, #e1ab9a, #c69972, #a18a4f, #747d35, #677c30, #597a2d, #48792c, #608330, #778c36, #8e963d, #a59f46); */
+  /* background-image: linear-gradient(to right top, #9c8383, #9c878a, #9c8b91, #9b9096, #9b949a, #a2949d, #a994a0, #b193a1, #c48d91, #cc8c77, #c39359, #a59f46); */
+  /* background-image: radial-gradient(circle, #47d5b8, #42cbcf, #63bed7, #85b0ce, #9aa4bb, #a39eb6, #ab98ad, #b193a1, #c48d91, #cc8c77, #c39359, #a59f46); */
+  /* background-image: linear-gradient(to right top, #47d5b8, #3ac5ad, #2db5a3, #21a597, #14968c, #209991, #299b96, #329e9b, #4bb3b3, #62c9cb, #79dfe4, #90f6fd); */
+
+
+  /* background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%); */
+  background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
+}
+
 @media screen and (min-width: 768px){
   .dropdown:hover .dropdown-menu, .btn-group:hover .dropdown-menu{
     display: block;
@@ -26,4 +39,9 @@
 }
 .like {
   margin-right: 10px;
+}
+
+#outline {
+  border-color: rgb(18, 18, 204);
+  border-width: 4px;
 }

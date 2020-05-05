@@ -58,6 +58,16 @@
       }
     }
 
+    $sqlExist = "SELECT * FROM voters WHERE voters_id = '$voters_id'";
+		if (isset($_GET['edit'])){
+      $sqlExist = "SELECT * FROM voters WHERE voters_id = '$voters_id' AND id != '$edit_id'";
+		}
+    $rest = $db->query($sqlExist);
+		$count = mysqli_num_rows($rest);
+		if ($count > 0){
+			$errors[] .= $voters_id. ' already exists. Please enter another ID';
+		}
+
     if (!empty($errors)) {
       echo display_errors($errors);
     } else {
@@ -81,69 +91,82 @@
 ?>
 
 
-<div class="container font-weight-bold">
-    <h2 class="text-center font-weight-bold"><?= ((isset($_GET['add']))?'Add A New':'Edit'); ?> Voter</h2>
-    <hr>
-    <form action="voters.php?<?= ((isset($_GET['add']))?'add=1':'edit='.$edit_id) ?>" method="POST"> 
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-4 mb-2">
-            <label for="voters_id">ID *:</label>
-            <div class="input-group">
-              <input type="text" class="form-control" name="voters_id" id="voters_id" value="<?= $voters_id; ?>"<?= isset($_GET['edit'])?' readonly':''; ?>>
-              <div class="input-group-append">
-                <button type="button" class="btn btn-info ass" onclick="getElementById('voters_id').value='<?= $gen_id; ?>'"><i class="fa fa-sync-alt"></i></button>  
-                <button type="button" class="btn btn-danger" onclick="document.getElementById('voters_id').value = ''"><i class="fa fa-backspace"></i></button>  
+  <div class="container font-weight-bold">
+    <div class="card rounded-lg" id="outline">
+      <div class="card-header">
+        <h2 class="text-center font-weight-bold"><?= ((isset($_GET['add']))?'Add A New':'Edit'); ?> Voter</h2>
+      </div>
 
-                <!-- DISABLE BUTTONS -->
-                <!-- <button type="button" class="btn btn-info ass"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="getElementById('voters_id').value='<?= $gen_id; ?>'"><i class="fa fa-sync-alt"></i></button>  
-                <button type="button" class="btn btn-danger"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="document.getElementById('voters_id').value = ''"><i class="fa fa-backspace"></i></button>   -->
-                <!-- DISABLE BUTTONS -->
+      <div class="card-body">
+        <form action="voters.php?<?= ((isset($_GET['add']))?'add=1':'edit='.$edit_id) ?>" method="POST"> 
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-4 mb-2">
+                <label for="voters_id">ID *:</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="voters_id" id="voters_id" value="<?= $voters_id; ?>"<?= isset($_GET['edit'])?' readonly':''; ?>>
+                  <div class="input-group-append">
+                    <!-- ENABLE BUTTONS -->
+                    <!-- <button type="button" class="btn btn-info ass" onclick="getElementById('voters_id').value='<?= $gen_id; ?>'"><i class="fa fa-sync-alt"></i></button>  
+                    <button type="button" class="btn btn-danger" onclick="document.getElementById('voters_id').value = ''"><i class="fa fa-backspace"></i></button>   -->
+                    <!-- ENABLE BUTTONS -->
+    
+                    <!-- DISABLE BUTTONS -->
+                    <button type="button" class="btn btn-info ass"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="getElementById('voters_id').value='<?= $gen_id; ?>'"><i class="fa fa-sync-alt"></i></button>  
+                    <button type="button" class="btn btn-danger"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="document.getElementById('voters_id').value = ''"><i class="fa fa-backspace"></i></button>  
+                    <!-- DISABLE BUTTONS -->
+                  </div>
+                </div>
               </div>
+              
+              <div class="col-md-4 mb-2">
+                <label for="firstname">First Name *:</label>
+                <input type="text" class="form-control text-capitalize" name="firstname" id="firstname" value="<?= $firstname; ?>">
+              </div>
+    
+              <div class="col-md-4 mb-2">
+                <label for="lastname">Last Name *:</label>
+                <input type="text" class="form-control text-capitalize" name="lastname" id="lastname" value="<?= $lastname; ?>">
+              </div>
+    
+              <div class="col-md-4 mb-2">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" name="email" id="email" value="<?= $email; ?>">
+              </div>
+    
+              <div class="col-md-4 mb-2">
+                <label for="pwd">KEY *:</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="pwd" id="pwd" value="<?= $pwd; ?>"<?= isset($_GET['edit'])?' readonly':''; ?>>
+                  <div class="input-group-append">
+                    <!-- ENABLE BUTTONS -->
+                    <!-- <button type="button" class="btn btn-info ass" onclick="getElementById('pwd').value='<?= $gen_key; ?>'"><i class="fa fa-sync-alt"></i></button>  
+                    <button type="button" class="btn btn-danger" onclick="document.getElementById('pwd').value = ''"><i class="fa fa-backspace"></i></button>   -->
+                    <!-- ENABLE BUTTONS -->
+    
+                    <!-- DISABLE BUTTONS -->
+                    <button type="button" class="btn btn-info ass"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="getElementById('pwd').value='<?= $gen_key; ?>'"><i class="fa fa-sync-alt"></i></button>  
+                    <button type="button" class="btn btn-danger"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="document.getElementById('pwd').value = ''"><i class="fa fa-backspace"></i></button>  
+                    <!-- DISABLE BUTTONS -->
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-          
-          <div class="col-md-4 mb-2">
-            <label for="firstname">First Name *:</label>
-            <input type="text" class="form-control text-capitalize" name="firstname" id="firstname" value="<?= $firstname; ?>">
-          </div>
+        </div>
 
-          <div class="col-md-4 mb-2">
-            <label for="lastname">Last Name *:</label>
-            <input type="text" class="form-control text-capitalize" name="lastname" id="lastname" value="<?= $lastname; ?>">
-          </div>
-
-          <div class="col-md-4 mb-2">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" name="email" id="email" value="<?= $email; ?>">
-          </div>
-
-          <div class="col-md-4 mb-2">
-            <label for="pwd">KEY *:</label>
-            <div class="input-group">
-              <input type="text" class="form-control" name="pwd" id="pwd" value="<?= $pwd; ?>"<?= isset($_GET['edit'])?' readonly':''; ?>>
-              <div class="input-group-append">
-                <button type="button" class="btn btn-info ass" onclick="getElementById('pwd').value='<?= $gen_key; ?>'"><i class="fa fa-sync-alt"></i></button>  
-                <button type="button" class="btn btn-danger" onclick="document.getElementById('pwd').value = ''"><i class="fa fa-backspace"></i></button>  
-
-                <!-- DISABLE BUTTONS -->
-                <!-- <button type="button" class="btn btn-info ass"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="getElementById('pwd').value='<?= $gen_key; ?>'"><i class="fa fa-sync-alt"></i></button>  
-                <button type="button" class="btn btn-danger"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="document.getElementById('pwd').value = ''"><i class="fa fa-backspace"></i></button>   -->
-                <!-- DISABLE BUTTONS -->
-              </div>
-            </div>
-          </div>
-
+        <div class="card-footer">
           <div class="col-md-12 mb-2 clearfix mt-4">
             <div class="float-right">
               <a href="voters.php" class="btn btn-secondary mr-2"><span class="fa fa-times-circle mr-2"></span>Cancel</a>
               <button class="btn btn-success" type="submit"><?= ((isset($_GET['add']))?'<span class="fa fa-plus-circle mr-2"></span>Add':'<span class="fa fa-pen-fancy mr-2"></span>Edit'); ?> Voter</button>
             </div>
           </div>
-
         </div>
-      </div>
-    </form>
+        </form>
+
+    </div>
   </div>
 
 <?php
@@ -154,62 +177,69 @@
 ?>
 
 <div class="container" style="position: relative">
-    <h1 class="font-weight-bolder text-center">Voters List</h1>
-    <hr><br>
-    <a href="voters.php?add=1" class="btn btn-block btn-success"><i class="fa fa-user-plus mr-2"></i>Add Voter</a>
-    <br>
+    <div class="card rounded-lg" id="outline">
+      <div class="card-header">
+        <h1 class="font-weight-bolder text-center">Voters List</h1>
 
-    <div class="table-responsive">
-      <table class="table table-borderless table-striped table-hover" id="dataTable">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Voters ID</th>
-            <th>Voters KEY</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <tr>
-            <th></th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Voters ID</th>
-            <th>Voters KEY</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </tfoot>
+        <hr>
+        
+        <a href="voters.php?add=1" class="btn btn-block btn-success"><i class="fa fa-user-plus mr-2"></i>Add Voter</a>
+      </div>
+      
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-borderless table-striped table-hover" id="dataTable">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Voters ID</th>
+                <th>Voters KEY</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Voters ID</th>
+                <th>Voters KEY</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </tfoot>
+    
+            <tbody>
+            <?php
+              foreach ($result_voter as $res):
+              $voter_id = $res['id'];
+            ?>
+              <tr>
+                <td><?= $i++; ?></td>
+                <td><?= $res['firstname']; ?></</td>
+                <td><?= $res['lastname']; ?></td>
+                <td><?= $res['voters_id']; ?></td>
+                <td><?= $res['pwd']; ?></td>
+                <td><?= $res['email']; ?></td>
+                <td><?= $res['status']; ?></td>
+                <td>
+                  <div class="btn-group btn-group-sm">
+                    <a href="voters.php?edit=<?= $voter_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span></a>
+                    <a href="voters.php?delete=<?= $voter_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span></a>
+                  </div>
+                </td>
+              </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-        <tbody>
-        <?php
-          foreach ($result_voter as $res):
-          $voter_id = $res['id'];
-        ?>
-          <tr>
-            <td><?= $i++; ?></td>
-            <td><?= $res['firstname']; ?></</td>
-            <td><?= $res['lastname']; ?></td>
-            <td><?= $res['voters_id']; ?></td>
-            <td><?= $res['pwd']; ?></td>
-            <td><?= $res['email']; ?></td>
-            <td><?= $res['status']; ?></td>
-            <td>
-              <div class="btn-group btn-group-sm">
-                <a href="voters.php?edit=<?= $voter_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span></a>
-                <a href="voters.php?delete=<?= $voter_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span></a>
-              </div>
-            </td>
-          </tr>
-          <?php endforeach; ?>
-        </tbody>
-
-      </table>
     </div>
   </div>
 

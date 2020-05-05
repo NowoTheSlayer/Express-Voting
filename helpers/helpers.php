@@ -29,7 +29,8 @@
 	}
 
 	function sanitize($dirty){
-		return htmlentities($dirty, ENT_QUOTES, "UTF-8");
+		// return htmlentities($dirty, ENT_QUOTES, "UTF-8");
+		return htmlentities($dirty, ENT_HTML5, "UTF-8"); 
 		return trim($dirty);
 		return stripslashes($dirty);
 		return htmlspecialchars($dirty);

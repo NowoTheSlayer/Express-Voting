@@ -32,32 +32,31 @@
 
 
 	if (isset($_POST['add_submit'])){
-		$post = sanitize($_POST['post']);
+		$post = ucfirst(sanitize($_POST['post']));
+		$zero = 0;
 
 		//check if position is blank
 		if ($_POST['post'] == ''){
-			$errors[] .= 'You must enter a position.';
+			$errors[] .= 'You must enter a post.';
 		}
 
 		// check if position exists in database
-		$sql = "SELECT * FROM position WHERE post = '$post'";
-
+		$sqlExist = "SELECT * FROM position WHERE post = '$post'";
 		if (isset($_GET['edit'])){
-			$sql = "SELECT * FROM position WHERE post = '$post' AND id != '$edit_id'";
+			$sqlExist = "SELECT * FROM position WHERE post = '$post' AND id! = '$edit_id'";
 		}
 
-		$result = $db->query($sql);
-		$count = mysqli_num_rows($result);
-
+		$rest = $db->query($sqlExist);
+		$count = mysqli_num_rows($rest);
 		if ($count > 0){
-			$errors[] .= $post. ' already exists. Please provide another position.';
+			$errors[] .= $post. ' already exists. Please choose another post.';
 		}
 
 		//display errors
 		if(!empty($errors)){
 			echo display_errors($errors);
 		} else{
-			$sql = "INSERT INTO position (post) VALUES ('$post')";
+			$sql = "INSERT INTO position (post, deleted) VALUES ('$post', $zero)";
 			$updated = 'added';
 
 			if (isset($_GET['edit'])){
@@ -76,60 +75,64 @@
 
 
   <div class="container">
-		<h2 class="font-weight-bold text-center">Posts</h2>
-		<hr>
-		
-		<div class="d-flex justify-content-center">
-			<form class="form-inline" action="posts.php<?= isset($_GET['edit'])?'?edit='.$edit_id:'' ?>" method="POST">
-				<div class="form-group text-center">
-					<label for="post" class="mb-2 mr-sm-2 font-weight-bold"><?= isset($_GET['edit'])?'Edit':'Add A'; ?> Post :</label>
-					<div class="text-center">
-						
-						<input type="text" name="post" id="post" class="form-control text-capitalize mb-2 mr-sm-2" value="<?= $post_value; ?>">
+		<div class="card rounded-lg" id="outline">
+			<div class="card-header">
+				<h2 class="font-weight-bold text-center">Posts</h2>
 
-						<?= isset($_GET['edit'])?'<a href="posts.php" class="btn btn-secondary mb-2 mr-sm-2"><i class="fa fa-times-circle mr-2"></i>Cancel</a>':''; ?>
-						<button type="submit" name="add_submit" class="btn btn-success mb-2"><?= isset($_GET['edit'])?'<span class="fa fa-pen-fancy mr-2"></span>Edit':'<span class="fa fa-plus-circle mr-2"></span>Add'; ?> Post</button>
-					</div>
-				</div>
-			</form>
-		</div>
+				<hr>
 
-		<hr>
-
-		<div class="table-responsive-sm">
-			<table class="table table-borderless table-striped table-hover" id="dataTable">
-				<thead>
-					<th></th>
-					<th>Brand</th>
-					<th></th>
-					<th></th>
-				</thead>
-				<tfoot>
-					<th></th>
-					<th>Brand</th>
-					<th></th>
-					<th></th>
-				</tfoot>
-
-				<tbody>
-				<?php 
-					foreach ($result as $res): 
-					$post_id = $res['id'];		
-				?>
-					<tr>
-						<td><?= $i++; ?></td>
-						<td><?= $res['post']; ?></td>
-						<td>
-							<div class="btn-group btn-group-sm">
-                <a href="posts.php?edit=<?= $post_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span></a>
-                <a href="voters.php?delete=<?= $post_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span></a>
+				<div class="d-flex justify-content-center">
+					<form class="form-inline" action="posts.php<?= isset($_GET['edit'])?'?edit='.$edit_id:'' ?>" method="POST">
+						<div class="form-group text-center">
+							<label for="post" class="mb-2 mr-sm-2 font-weight-bold"><?= isset($_GET['edit'])?'Edit':'Add A'; ?> Post :</label>
+							<div class="text-center">
+								
+								<input type="text" name="post" id="post" class="form-control text-capitalize mb-2 mr-sm-2" value="<?= $post_value; ?>">
+	
+								<?= isset($_GET['edit'])?'<a href="posts.php" class="btn btn-secondary mb-2 mr-sm-2"><i class="fa fa-times-circle mr-2"></i>Cancel</a>':''; ?>
+								<button type="submit" name="add_submit" class="btn btn-success mb-2"><?= isset($_GET['edit'])?'<span class="fa fa-pen-fancy mr-2"></span>Edit':'<span class="fa fa-plus-circle mr-2"></span>Add'; ?> Post</button>
 							</div>
-						</td>
-					</tr>
-				<?php endforeach; ?>
-				</tbody>
+						</div>
+					</form>
+				</div>
+			</div>
 
-			</table>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-borderless table-striped table-hover" id="dataTable">
+						<thead>
+							<th></th>
+							<th>Brand</th>
+							<th></th>
+						</thead>
+						<tfoot>
+							<th></th>
+							<th>Brand</th>
+							<th></th>
+						</tfoot>
+
+						<tbody>
+						<?php 
+							foreach ($result as $res): 
+							$post_id = $res['id'];		
+						?>
+							<tr>
+								<td><?= $i++; ?></td>
+								<td><?= $res['post']; ?></td>
+								<td>
+									<div class="btn-group btn-group-sm">
+										<a href="posts.php?edit=<?= $post_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span></a>
+										<a href="posts.php?delete=<?= $post_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span></a>
+									</div>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+						</tbody>
+
+					</table>
+				</div>
+			</div>
+
 		</div>
 	</div>
 

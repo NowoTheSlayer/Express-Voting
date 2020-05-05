@@ -16,6 +16,26 @@
     <script type="text/javascript" src="../dist/datatable/js/dataTables.bootstrap4.min.js"></script>
     <!-- <script type="text/javascript" src="../dist/js/toastr.js"></script> -->
 
+    <!-- VIEW DETAILS -->
+    <script type="text/javascript">   
+      $(document).ready(function() {
+        $('.view_candidate_data').click(function(){
+          var phoneData = $(this).attr('id');
+
+          $.ajax({
+            url: "models/getresult.php",
+            method: "POST",
+            data: {phoneData:phoneData},
+            success: function(data){
+              $('#candidate_result').html(data);
+              $('#candidate_viewmodal').modal('show');
+            }
+          });
+        });
+      });
+
+    </script>
+    <!-- VIEW DETAILS -->
 
     <!-- HOVER ON DROPDOWN -->
     <script type="text/javascript">
@@ -32,7 +52,7 @@
     <!-- HOVER ON DROPDOWN -->
 
     <!-- DATATABLE -->
-    <script>
+    <script type="text/javascript">
       $(document).ready(function() {
         $('#dataTable').DataTable({
         // If you want to disable some features, use the following code.
@@ -50,7 +70,7 @@
     <!-- DATATABLE -->
 
     <!-- CUSTOM FILE FOR CUSTOM SELECT DROPDOWN-->
-    <script>
+    <script type="text/javascript">
       // Add the following code if you want the name of the file appear on select
       $(".custom-file-input").on("change", function() {
         var fileName = $(this).val().split("\\").pop();
@@ -60,7 +80,7 @@
     <!-- CUSTOM FILE FOR CUSTOM SELECT DROPDOWN-->
 
     <!-- TOAST RELATED -->
-    <script>
+    <script type="text/javascript">
       $(document).ready(function(){
         $('.toast').toast('show');
       });
