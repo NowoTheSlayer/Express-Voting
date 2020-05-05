@@ -202,8 +202,8 @@
         <div class="card-footer">
           <div class="col-md-12 mb-2 clearfix mt-4">
             <div class="float-right">
-              <a href="candidates.php" class="btn btn-secondary mr-2"><span class="fa fa-times-circle mr-2"></span>Cancel</a>
-              <button class="btn btn-success" type="submit"><?= ((isset($_GET['add']))?'<span class="fa fa-plus-circle mr-2"></span>Add':'<span class="fa fa-pen-fancy mr-2"></span>Edit'); ?> Candidate</button>
+              <a href="candidates.php" class="btn btn-secondary mr-2"><span class="fa fa-times-circle"></span> Cancel</a>
+              <button class="btn btn-success" type="submit"><?= ((isset($_GET['add']))?'<span class="fa fa-plus-circle"></span> Add':'<span class="fa fa-pen-fancy"></span> Edit'); ?> Candidate</button>
             </div>
           </div>
         </div>
@@ -272,7 +272,7 @@
                 <td><img src="<?= $res['image']; ?>" class="img-thumbnail" style="width: 100px; height:100px;" alt="Image"></td>
                 <td>
                   <div class="btn-group btn-group-sm">
-                    <button type="button" class="btn btn-sm btn-outline-success mr-2 view_candidate_data" id="<?= $candid_id; ?>"><span class="fa fa-eye"></span> View</button>
+                    <button type="button" class="btn btn-sm btn-outline-success mr-2 view_candidate_data" data-id="<?= $candid_id; ?>"><span class="fa fa-eye"></span> View</button>
 
                     <a href="candidates.php?edit=<?= $candid_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span> Edit</a>
                     <a href="candidates.php?delete=<?= $candid_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span> Delete</a>

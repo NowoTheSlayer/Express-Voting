@@ -45,7 +45,7 @@
     $email = isset($_POST['email']) && !empty($_POST['email'])?sanitize($_POST['email']):$voter['email'];
     $pwd = isset($_POST['pwd']) && !empty($_POST['pwd'])?sanitize($_POST['pwd']):$voter['pwd'];
     // $status = isset($_POST['status']) && !empty($_POST['status'])?ucfirst(sanitize($_POST['status'])):$voter['status'];
-    $status = $voter['status'] == 'Not Voted'?'Not Voted':'Voted';
+    $status = $voter['status'] == 'Voted'?'Voted':'Not Voted';
   }
 
   if ($_POST) {
@@ -159,8 +159,8 @@
         <div class="card-footer">
           <div class="col-md-12 mb-2 clearfix mt-4">
             <div class="float-right">
-              <a href="voters.php" class="btn btn-secondary mr-2"><span class="fa fa-times-circle mr-2"></span>Cancel</a>
-              <button class="btn btn-success" type="submit"><?= ((isset($_GET['add']))?'<span class="fa fa-plus-circle mr-2"></span>Add':'<span class="fa fa-pen-fancy mr-2"></span>Edit'); ?> Voter</button>
+              <a href="voters.php" class="btn btn-secondary mr-2"><span class="fa fa-times-circle"></span> Cancel</a>
+              <button class="btn btn-success" type="submit"><?= ((isset($_GET['add']))?'<span class="fa fa-plus-circle"></span> Add':'<span class="fa fa-pen-fancy"></span> Edit'); ?> Voter</button>
             </div>
           </div>
         </div>
@@ -229,8 +229,10 @@
                 <td><?= $res['status']; ?></td>
                 <td>
                   <div class="btn-group btn-group-sm">
-                    <a href="voters.php?edit=<?= $voter_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span></a>
-                    <a href="voters.php?delete=<?= $voter_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span></a>
+                    <button type="button" class="btn btn-sm btn-outline-success mr-2 view_voter_data" data-id="<?= $voter_id; ?>"><span class="fa fa-eye"></span> View</button>
+
+                    <a href="voters.php?edit=<?= $voter_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span> Edit</a>
+                    <a href="voters.php?delete=<?= $voter_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"> Delete</span></a>
                   </div>
                 </td>
               </tr>
@@ -243,5 +245,5 @@
     </div>
   </div>
 
-
+  <?php  include 'includes/voter_viewmodal.php'; ?>
 <?php } include 'views/footer.php' ?>

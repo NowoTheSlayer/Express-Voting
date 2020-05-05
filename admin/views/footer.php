@@ -19,19 +19,37 @@
     <!-- VIEW DETAILS -->
     <script type="text/javascript">   
       $(document).ready(function() {
+        // CANDIDATE
         $('.view_candidate_data').click(function(){
-          var phoneData = $(this).attr('id');
+          var candy = $(this).data('id');
 
           $.ajax({
-            url: "models/getresult.php",
+            url: "models/getcandy.php",
             method: "POST",
-            data: {phoneData:phoneData},
+            data: {candy:candy},
             success: function(data){
               $('#candidate_result').html(data);
               $('#candidate_viewmodal').modal('show');
             }
           });
         });
+        // CANDIDATE
+
+        // VOTER
+        $('.view_voter_data').click(function(){
+          var voty = $(this).data('id');
+
+          $.ajax({
+            url: "models/getvoter.php",
+            method: "POST",
+            data: {voty:voty},
+            success: function(data){
+              $('#voter_result').html(data);
+              $('#voter_viewmodal').modal('show');
+            }
+          });
+        });
+        // VOTER
       });
 
     </script>
