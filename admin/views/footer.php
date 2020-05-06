@@ -50,6 +50,22 @@
           });
         });
         // VOTER
+
+        // USER
+        $('.view_user_data').click(function(){
+          var usy = $(this).data('id');
+
+          $.ajax({
+            url: "models/getusers.php",
+            method: "POST",
+            data: {usy:usy},
+            success: function(data){
+              $('#user_result').html(data);
+              $('#user_viewmodal').modal('show');
+            }
+          });
+        });
+        // USER
       });
 
     </script>

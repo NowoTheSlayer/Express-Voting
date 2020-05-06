@@ -69,6 +69,10 @@
             </li>
 
             <li>
+              <a href="posts.php"><span class="fa fa-graduation-cap"></span> Posts</a>
+            </li>
+
+            <li>
 	            <a href="#candidateSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-user-lock"></span> Candidates</a>
 	            <ul class="collapse list-unstyled" id="candidateSubmenu">
                 <li>
@@ -92,7 +96,7 @@
               </ul>
 	          </li>
 	          <li>
-              <a href="#"><span class="fa fa-cogs"></span> Settings</a>
+              <a href="settings.php"><span class="fa fa-cogs"></span> Settings</a>
 	          </li>
 	          <li>
               <a href="#"><span class="fa fa-paper-plane"></span> Launch</a>

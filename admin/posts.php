@@ -1,4 +1,5 @@
 <?php
+	ob_start();
   require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
   include 'views/head.php';
   include 'views/navigation.php';
@@ -103,12 +104,12 @@
 						<thead>
 							<th></th>
 							<th>Brand</th>
-							<th></th>
+							<th>Action</th>
 						</thead>
 						<tfoot>
 							<th></th>
 							<th>Brand</th>
-							<th></th>
+							<th>Action</th>
 						</tfoot>
 
 						<tbody>
@@ -138,4 +139,7 @@
 
 
 
-<?php include 'views/footer.php'; ?>
+<?php 
+	include 'views/footer.php'; 
+	ob_end_flush();
+?>

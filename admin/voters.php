@@ -1,4 +1,5 @@
 <?php
+  ob_start();
   require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
   include 'views/head.php';
   include 'views/navigation.php';
@@ -22,77 +23,77 @@
 
 
   if (isset($_GET['add']) || isset($_GET['edit'])) {
-  $voters_id = isset($_POST['voters_id']) && !empty($_POST['voters_id'])?ucfirst(sanitize($_POST['voters_id'])):'';
-  $firstname = isset($_POST['firstname']) && !empty($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):'';
-  $lastname = isset($_POST['lastname']) && !empty($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):'';
-  $email = isset($_POST['email']) && !empty($_POST['email'])?sanitize($_POST['email']):'';
-  $pwd = isset($_POST['pwd']) && !empty($_POST['pwd'])?sanitize($_POST['pwd']):'';
-  // $status = isset($_POST['status']) && !empty($_POST['status'])?ucfirst(sanitize($_POST['status'])):'';
-  $status = 'Not Voted';
+    $voters_id = isset($_POST['voters_id'])?ucfirst(sanitize($_POST['voters_id'])):'';
+    $firstname = isset($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):'';
+    $lastname = isset($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):'';
+    $email = isset($_POST['email'])?sanitize($_POST['email']):'';
+    $pwd = isset($_POST['pwd'])?sanitize($_POST['pwd']):'';
+    // $status = isset($_POST['status']) && !empty($_POST['status'])?ucfirst(sanitize($_POST['status'])):'';
+    $status = 'Not Voted';
 
-  $zero = 0;
-  $errors = array();
-
-  // EDIT CANDIDATE
-  if (isset($_GET['edit'])){
-    $edit_id = (int)$_GET['edit'];
-    $voterQ = $db->query("SELECT * FROM voters WHERE id = '$edit_id'");
-    $voter = mysqli_fetch_assoc($voterQ);
-
-    $voters_id = isset($_POST['voters_id']) && !empty($_POST['voters_id'])?ucfirst(sanitize($_POST['voters_id'])):$voter['voters_id'];
-    $firstname = isset($_POST['firstname']) && !empty($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):$voter['firstname'];
-    $lastname = isset($_POST['lastname']) && !empty($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):$voter['lastname'];
-    $email = isset($_POST['email']) && !empty($_POST['email'])?sanitize($_POST['email']):$voter['email'];
-    $pwd = isset($_POST['pwd']) && !empty($_POST['pwd'])?sanitize($_POST['pwd']):$voter['pwd'];
-    // $status = isset($_POST['status']) && !empty($_POST['status'])?ucfirst(sanitize($_POST['status'])):$voter['status'];
-    $status = $voter['status'] == 'Voted'?'Voted':'Not Voted';
-  }
-
-  if ($_POST) {
+    $zero = 0;
     $errors = array();
-    $required = array('voters_id', 'firstname', 'lastname', 'pwd');
-    foreach($required as $field){
-      if ($_POST[$field] == '') {
-        $errors[] = 'All Fields With an Asterics are Required.';
-        break;
-      }
+
+    // EDIT CANDIDATE
+    if (isset($_GET['edit'])){
+      $edit_id = (int)$_GET['edit'];
+      $voterQ = $db->query("SELECT * FROM voters WHERE id = '$edit_id'");
+      $voter = mysqli_fetch_assoc($voterQ);
+
+      $voters_id = isset($_POST['voters_id']) && !empty($_POST['voters_id'])?ucfirst(sanitize($_POST['voters_id'])):$voter['voters_id'];
+      $firstname = isset($_POST['firstname']) && !empty($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):$voter['firstname'];
+      $lastname = isset($_POST['lastname']) && !empty($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):$voter['lastname'];
+      $email = isset($_POST['email']) && !empty($_POST['email'])?sanitize($_POST['email']):$voter['email'];
+      $pwd = isset($_POST['pwd']) && !empty($_POST['pwd'])?sanitize($_POST['pwd']):$voter['pwd'];
+      // $status = isset($_POST['status']) && !empty($_POST['status'])?ucfirst(sanitize($_POST['status'])):$voter['status'];
+      $status = $voter['status'] == 'Voted'?'Voted':'Not Voted';
     }
 
-    $sqlExist = "SELECT * FROM voters WHERE voters_id = '$voters_id'";
-		if (isset($_GET['edit'])){
-      $sqlExist = "SELECT * FROM voters WHERE voters_id = '$voters_id' AND id != '$edit_id'";
-		}
-    $rest = $db->query($sqlExist);
-		$count = mysqli_num_rows($rest);
-		if ($count > 0){
-			$errors[] .= $voters_id. ' already exists. Please enter another ID';
-		}
-
-    if (!empty($errors)) {
-      echo display_errors($errors);
-    } else {
-      $sql_DB = "INSERT INTO voters (voters_id, firstname, lastname, email, pwd, status, deleted) VALUES ('$voters_id', '$firstname', '$lastname', '$email', '$pwd', '$status', '$zero')";
-      // $_SESSION['success_flash'] = 'Voter has been added';
-      $updated = 'added';
-
-      if (isset($_GET['edit'])) {
-        $sql_DB = "UPDATE voters SET voters_id = '$voters_id', firstname = '$firstname', lastname = '$lastname', email = '$email', pwd = '$pwd', status = '$status', deleted = '$zero' WHERE  id = '$edit_id'";
-        $updated = 'updated';
-        // $_SESSION['success_flash'] = 'Voter has been updated';
+    if ($_POST) {
+      $errors = array();
+      $required = array('voters_id', 'firstname', 'lastname', 'pwd');
+      foreach($required as $field){
+        if ($_POST[$field] == '') {
+          $errors[] = 'All Fields With an Asterics are Required.';
+          break;
+        }
       }
 
-      $_SESSION['success_flash'] = 'Voter has been '.$updated;
+      $sqlExist = "SELECT * FROM voters WHERE voters_id = '$voters_id'";
+      if (isset($_GET['edit'])){
+        $sqlExist = "SELECT * FROM voters WHERE voters_id = '$voters_id' AND id != '$edit_id'";
+      }
+      $rest = $db->query($sqlExist);
+      $count = mysqli_num_rows($rest);
+      if ($count > 0){
+        $errors[] .= $voters_id. ' already exists. Please enter another ID';
+      }
 
-      $db->query($sql_DB);
-      header('Location: voters.php');
+      if (!empty($errors)) {
+        echo display_errors($errors);
+      } else {
+        $sql_DB = "INSERT INTO voters (voters_id, firstname, lastname, email, pwd, status, deleted) VALUES ('$voters_id', '$firstname', '$lastname', '$email', '$pwd', '$status', '$zero')";
+        // $_SESSION['success_flash'] = 'Voter has been added';
+        $updated = 'added';
+
+        if (isset($_GET['edit'])) {
+          $sql_DB = "UPDATE voters SET voters_id = '$voters_id', firstname = '$firstname', lastname = '$lastname', email = '$email', pwd = '$pwd', status = '$status', deleted = '$zero' WHERE  id = '$edit_id'";
+          $updated = 'updated';
+          // $_SESSION['success_flash'] = 'Voter has been updated';
+        }
+
+        $_SESSION['success_flash'] = 'Voter has been '.$updated;
+
+        $db->query($sql_DB);
+        header('Location: voters.php');
+      }
     }
-  }
 
 ?>
 
 
   <div class="container font-weight-bold">
-    <div class="card rounded-lg" id="outline">
+    <div class="card rounded-lg shadow-lg" id="outline">
       <div class="card-header">
         <h2 class="text-center font-weight-bold"><?= ((isset($_GET['add']))?'Add A New':'Edit'); ?> Voter</h2>
       </div>
@@ -160,7 +161,7 @@
           <div class="col-md-12 mb-2 clearfix mt-4">
             <div class="float-right">
               <a href="voters.php" class="btn btn-secondary mr-2"><span class="fa fa-times-circle"></span> Cancel</a>
-              <button class="btn btn-success" type="submit"><?= ((isset($_GET['add']))?'<span class="fa fa-plus-circle"></span> Add':'<span class="fa fa-pen-fancy"></span> Edit'); ?> Voter</button>
+              <button class="btn btn-success" type="submit"><?= isset($_GET['add'])?'<span class="fa fa-plus-circle"></span> Add':'<span class="fa fa-pen-fancy"></span> Edit'; ?> Voter</button>
             </div>
           </div>
         </div>
@@ -177,7 +178,7 @@
 ?>
 
 <div class="container" style="position: relative">
-    <div class="card rounded-lg" id="outline">
+    <div class="card rounded-lg shadow-lg" id="outline">
       <div class="card-header">
         <h1 class="font-weight-bolder text-center">Voters List</h1>
 
@@ -192,8 +193,7 @@
             <thead>
               <tr>
                 <th></th>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Name</th>
                 <th>Voters ID</th>
                 <th>Voters KEY</th>
                 <th>Email</th>
@@ -204,8 +204,7 @@
             <tfoot>
               <tr>
                 <th></th>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Name</th>
                 <th>Voters ID</th>
                 <th>Voters KEY</th>
                 <th>Email</th>
@@ -221,8 +220,7 @@
             ?>
               <tr>
                 <td><?= $i++; ?></td>
-                <td><?= $res['firstname']; ?></</td>
-                <td><?= $res['lastname']; ?></td>
+                <td><?= $res['firstname'].' '.$res['lastname']; ?></</td>
                 <td><?= $res['voters_id']; ?></td>
                 <td><?= $res['pwd']; ?></td>
                 <td><?= $res['email']; ?></td>
@@ -245,5 +243,9 @@
     </div>
   </div>
 
-  <?php  include 'includes/voter_viewmodal.php'; ?>
-<?php } include 'views/footer.php' ?>
+<?php  
+  include 'includes/voter_viewmodal.php';
+  } 
+  include 'views/footer.php';
+  ob_end_flush();
+?>

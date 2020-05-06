@@ -1,4 +1,5 @@
 <?php
+	ob_start();
   require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
   include 'views/head.php';
   include 'views/navigation.php';
@@ -17,11 +18,11 @@
   }
 
 	if (isset($_GET['add']) || isset($_GET['edit'])) {
-    $position = isset($_POST['position']) && !empty($_POST['position'])?ucfirst(sanitize($_POST['position'])):'';
-		$firstname = isset($_POST['firstname']) && !empty($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):'';
-    $lastname = isset($_POST['lastname']) && !empty($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):'';
-    $level = isset($_POST['level']) && !empty($_POST['level'])?sanitize($_POST['level']):'';
-		$gender = isset($_POST['gender']) && !empty($_POST['gender'])?ucfirst(sanitize($_POST['gender'])):'';
+    $position = isset($_POST['position'])?ucfirst(sanitize($_POST['position'])):'';
+		$firstname = isset($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):'';
+    $lastname = isset($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):'';
+    $level = isset($_POST['level'])?sanitize($_POST['level']):'';
+		$gender = isset($_POST['gender'])?ucfirst(sanitize($_POST['gender'])):'';
 
     $saved_image = '';
     $zero = 0;
@@ -127,7 +128,7 @@
 ?>
 
   <div class="container font-weight-bold">
-    <div class="card rounded-lg" id="outline">
+    <div class="card rounded-lg shadow-lg" id="outline">
       <div class="card-header">
         <h2 class="text-center font-weight-bold"><?= ((isset($_GET['add']))?'Add A New':'Edit'); ?> Candidate</h2>
       </div>
@@ -181,7 +182,7 @@
               </div>
     
               <div class="col-md-4 mb-2">
-                <label>Custom file *:</label>
+                <label>Image *:</label>
                 <?php if($saved_image != ''): ?>
                   <div class="text-center">
                     <img src="<?= $saved_image; ?>" class="img-fluid" style="height:300px;" alt="Saved Image">
@@ -203,7 +204,7 @@
           <div class="col-md-12 mb-2 clearfix mt-4">
             <div class="float-right">
               <a href="candidates.php" class="btn btn-secondary mr-2"><span class="fa fa-times-circle"></span> Cancel</a>
-              <button class="btn btn-success" type="submit"><?= ((isset($_GET['add']))?'<span class="fa fa-plus-circle"></span> Add':'<span class="fa fa-pen-fancy"></span> Edit'); ?> Candidate</button>
+              <button class="btn btn-success" type="submit"><?= isset($_GET['add'])?'<span class="fa fa-plus-circle"></span> Add':'<span class="fa fa-pen-fancy"></span> Edit'; ?> Candidate</button>
             </div>
           </div>
         </div>
@@ -220,7 +221,7 @@
 ?>
 
   <div class="container" style="position: relative">
-    <div class="card rounded-lg" id="outline">
+    <div class="card rounded-lg shadow-lg" id="outline">
       <div class="card-header">
         <h1 class="font-weight-bolder text-center">Candidates List</h1>
 
@@ -236,8 +237,7 @@
               <tr>
                 <th></th>
                 <th>Position</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Name</th>
                 <th>Level</th>
                 <th>Gender</th>
                 <th>Image</th>
@@ -248,8 +248,7 @@
               <tr>
                 <th></th>
                 <th>Position</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Name</th>
                 <th>Level</th>
                 <th>Gender</th>
                 <th>Image</th>
@@ -265,8 +264,7 @@
               <tr>
                 <td><?= $i++; ?></td>
                 <td><?= $res['position']; ?></td>
-                <td><?= $res['firstname']; ?></</td>
-                <td><?= $res['lastname']; ?></td>
+                <td><?= $res['firstname'].' '.$res['lastname']; ?></</td>
                 <td><?= $res['level']; ?></td>
                 <td><?= $res['gender']; ?></td>
                 <td><img src="<?= $res['image']; ?>" class="img-thumbnail" style="width: 100px; height:100px;" alt="Image"></td>
@@ -290,5 +288,10 @@
   
   
   
-  <?php  include 'includes/candidate_viewmodal.php'; ?>
-<?php } include 'views/footer.php'; ?>
+<?php  
+  include 'includes/candidate_viewmodal.php';
+  } 
+  include 'views/footer.php'; 
+
+	ob_end_flush();
+?>
