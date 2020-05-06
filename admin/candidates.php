@@ -1,6 +1,11 @@
 <?php
 	ob_start();
   require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+
+  if (!is_logged_in()){
+    header('Location: login.php');
+  }
+  
   include 'views/head.php';
   include 'views/navigation.php';
   

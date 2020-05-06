@@ -67,9 +67,10 @@
 		header('Location: ' .$url);
 	}
 
-	function has_permission($permission = 'admin'){
+	function has_permission($permission = 'Admin'){
 		global $user_data;
 		$permissions = explode(',', $user_data['permissions']);
+		// $permissions = $user_data['permissions'];
 		if (in_array($permission, $permissions, true)) {
 			return true;
 		}

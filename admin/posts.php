@@ -1,6 +1,11 @@
 <?php
 	ob_start();
-  require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+	
+	if (!is_logged_in()){
+    header('Location: login.php');
+	}
+	
   include 'views/head.php';
   include 'views/navigation.php';
 
@@ -122,8 +127,8 @@
 								<td><?= $res['post']; ?></td>
 								<td>
 									<div class="btn-group btn-group-sm">
-										<a href="posts.php?edit=<?= $post_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span></a>
-										<a href="posts.php?delete=<?= $post_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span></a>
+										<a href="posts.php?edit=<?= $post_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span> Edit</a>
+										<a href="posts.php?delete=<?= $post_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"></span> Delete</a>
 									</div>
 								</td>
 							</tr>

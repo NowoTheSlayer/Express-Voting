@@ -15,14 +15,14 @@
 	require_once BASEURL.'helpers/helpers.php';
 
 
-	// if (isset($_SESSION['User'])) {
-	// 	$user_id = $_SESSION['User'];
-	// 	$query = $db->query("SELECT * FROM users WHERE id = '$user_id'");
-	// 	$user_data = mysqli_fetch_assoc($query);
-	// 	$fn = explode(' ', $user_data['full_name']);
-	// 	$user_data['first'] = $fn[0];
-	// 	$user_data['last'] = $fn[1];
-	// }
+	if (isset($_SESSION['User'])) {
+		$user_id = $_SESSION['User'];
+		$query = $db->query("SELECT * FROM users WHERE id = '$user_id'");
+		$user_data = mysqli_fetch_assoc($query);
+		// $fn = explode(' ', $user_data['full_name']);
+		// $user_data['first'] = $fn[0];
+		// $user_data['last'] = $fn[1];
+	}
 	// if (isset($_SESSION['user'])) {
 	// 	$user_idd = $_SESSION['user'];
 	// 	$query = $db->query("SELECT * FROM users WHERE id = '$user_idd'");

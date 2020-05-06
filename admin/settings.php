@@ -4,13 +4,13 @@
   include 'views/head.php';
   include 'views/navigation.php';
 
-  // if (!is_logged_in()){
-	// 	login_error_redirect();
-	// }
+  if (!is_logged_in()){
+		login_error_redirect();
+	}
 
-	// if(!has_permission('admin')){
-	// 	permission_error_redirect('index.php');
-	// }
+	if(!has_permission('Admin')){
+		permission_error_redirect('index.php');
+	}
   
   // DECLARATIONS
   $i = 1;
@@ -19,7 +19,6 @@
   if (isset($_GET['delete'])) {
     $id = sanitize($_GET['delete']);
     $db->query("UPDATE users SET deleted = 1 WHERE id = '$id'");
-    header('Location: candidates.php');
     $_SESSION['success_flash'] = 'User has been deleted';
 		header('Location: settings.php');
   }
@@ -35,6 +34,7 @@
 
     $zero = 0;
     $errors = array();
+    $preset = '0000-00-00 00:00:00';
 
     // EDIT USER
 		if (isset($_GET['edit'])){
@@ -42,17 +42,17 @@
 			$editQ = $db->query("SELECT * FROM users WHERE id = '$edit_id'");
       $user = mysqli_fetch_assoc($editQ);
       
-      
-      $firstname = isset($_POST['firstname']) && !empty($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):$user['firstname'];
-      $lastname = isset($_POST['lastname']) && !empty($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):$user['lastname'];
-      $email = isset($_POST['email']) && !empty($_POST['email'])?sanitize($_POST['email']):$user['email'];
-      $password = isset($_POST['password']) && !empty($_POST['password'])?sanitize($_POST['password']):$user['password'];
-      $permissions = isset($_POST['permissions']) && !empty($_POST['permissions'])?ucfirst(sanitize($_POST['permissions'])):$user['permissions'];
+			
+			$firstname = isset($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):$user['firstname'];
+			$lastname = isset($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):$user['lastname'];
+			$email = isset($_POST['email'])?sanitize($_POST['email']):$user['email'];
+			$password = isset($_POST['password'])?sanitize($_POST['password']):$user['password'];
+			$permissions = isset($_POST['permissions'])?ucfirst(sanitize($_POST['permissions'])):$user['permissions'];
     }
 
     if ($_POST) {
       if (isset($_GET['add'])){
-        $emailQuery = $db->query("SELECT firstname,lastname,email,password,permissions FROM users WHERE email = '$email'");
+        $emailQuery = $db->query("SELECT firstname,lastname,email,password,permissions,deleted FROM users WHERE email = '$email'");
         $emailCount = mysqli_num_rows($emailQuery);
   
         if($emailCount != 0){
@@ -95,7 +95,7 @@
       } else {
         // add user to database
         $hashed = password_hash($password, PASSWORD_DEFAULT);
-        $insertsql = "INSERT INTO users (firstname, lastname, email, password, permissions, deleted) VALUES ('$firstname', '$lastname', '$email', '$hashed', '$permissions', '$zero')";
+        $insertsql = "INSERT INTO users (firstname, lastname, email, password, last_login, permissions, deleted) VALUES ('$firstname', '$lastname', '$email', '$hashed', now(), '$permissions', '$zero')";
         // $_SESSION['success_flash'] = 'User has been added';
         $updated = 'added';
 
@@ -145,7 +145,7 @@
 
               <div class="col-md-4 mb-2">
                 <label for="password">Password *:</label>
-                <input type="password" class="form-control" name="password" id="password" value="<?= $password; ?>">
+                <input type="password" class="form-control" name="password" id="password" value="">
               </div>
 
               <div class="col-md-4 mb-2">
@@ -156,11 +156,12 @@
               <div class="col-md-4 mb-2">
 							<label for="permissions">Permissions *:</label>
 <!--                            Permissions cannot be changed by just anyone-->
-							<select name="permissions" id="permissions" class="form-control" <?= isset($_GET['edit'])?' disabled':''; ?>>
+              <!-- <select name="permissions" id="permissions" class="form-control" <?= isset($_GET['edit'])?' disabled':''; ?>> -->
+              <select name="permissions" id="permissions" class="form-control" <?= isset($_GET['edit']) && !has_permission('Admin')?' disabled':''; ?>>
 								<option value=""<?= $permissions == ''?' selected':''; ?>></option>
+								<option value="Admin"<?= $permissions == 'Admin'?' selected':''; ?>>Admin</option>
 								<option value="Editor"<?= $permissions == 'Editor'?' selected':'';
 								?>>Editor</option>
-								<option value="Admin, Editor"<?= $permissions == 'Admin, Editor'?' selected':''; ?>>Admin</option>
 							</select>
               </div>
 
@@ -261,3 +262,5 @@
   include 'views/footer.php'; 
   ob_end_flush();
 ?>
+
+<!-- echo "The time is " . date("h:i:sa"); -->

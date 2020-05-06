@@ -95,11 +95,31 @@
                 </li>
               </ul>
 	          </li>
-	          <li>
-              <a href="settings.php"><span class="fa fa-cogs"></span> Settings</a>
-	          </li>
-	          <li>
-              <a href="#"><span class="fa fa-paper-plane"></span> Launch</a>
+           
+            <?php if(has_permission('Admin')): ?>
+              <li>
+                <a href="settings.php"><span class="fa fa-cogs"></span> Settings</a>
+              </li>
+              
+              <li>
+                <a href="#"><span class="fa fa-paper-plane"></span> Launch</a>
+              </li>
+            <?php endif; ?>
+           
+            
+            <li>
+            </li>
+
+            <li>
+              <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-user-alt"></span> Hello <?= $user_data['firstname']; ?></a>
+              <ul class="collapse list-unstyled" id="profileSubmenu">
+                <li>
+                  <a href="change_password.php"><span class="fa fa-key"></span> Change Password</a>
+                </li>
+                <li>
+                  <a href="logout.php"><span class="fa fa-arrow-left"></span> Logout</a>
+                </li>
+              </ul>
 	          </li>
 	        </ul>
 

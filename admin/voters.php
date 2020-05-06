@@ -1,6 +1,11 @@
 <?php
   ob_start();
   require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+
+  if (!is_logged_in()){
+    header('Location: login.php');
+  }
+  
   include 'views/head.php';
   include 'views/navigation.php';
   
@@ -17,8 +22,8 @@
   if (isset($_GET['delete'])) {
     $id = sanitize($_GET['delete']);
     $db->query("UPDATE voters SET deleted = 1 WHERE id = '$id'");
-    header('Location: voters.php');
     $_SESSION['success_flash'] = 'Candidate has been deleted';
+    header('Location: voters.php');
   }
 
 
