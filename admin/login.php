@@ -10,7 +10,7 @@
   $email = isset($_POST['email'])?sanitize($_POST['email']):'';
   $email = trim($email);
   $password = isset($_POST['password'])?sanitize($_POST['password']):'';
-  $password = trim($password);
+  // $password = trim($password);
   $errors = array();
   $success = array();
 ?>
@@ -43,7 +43,7 @@
     // }
 
     // check if email exists in the database
-    $query = $db->query("SELECT * FROM users WHERE email = '$email'");
+    $query = $db->query("SELECT * FROM uses WHERE email = '$email'");
     $user = mysqli_fetch_assoc($query);
     $userCount = mysqli_num_rows($query);
 
@@ -87,7 +87,7 @@
     
             <div class="form-group">
               <label for="password">Password:</label>
-              <input type="password" class="form-control" name="password" id="password" value="" required>
+              <input type="password" class="form-control" name="password" id="password" required>
             </div>
     
             <div class="custom-control custom-checkbox mb-3">

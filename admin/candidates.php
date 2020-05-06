@@ -130,7 +130,7 @@
   <div class="container font-weight-bold">
     <div class="card rounded-lg shadow-lg" id="outline">
       <div class="card-header">
-        <h2 class="text-center font-weight-bold"><?= ((isset($_GET['add']))?'Add A New':'Edit'); ?> Candidate</h2>
+        <h2 class="text-center font-weight-bold"><?= isset($_GET['add'])?'Add A New':'Edit'; ?> Candidate</h2>
       </div>
 
       <div class="card-body">

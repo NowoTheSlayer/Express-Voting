@@ -113,7 +113,7 @@
         $_SESSION['success_flash'] = 'User has been '.$updated;
 
         $db->query($insertsql);
-        header('Location: users.php');
+        header('Location: settings.php');
       }
     }
 ?>
@@ -125,7 +125,7 @@
       </div>
 
       <div class="card-body">
-        <form action="settings.php?<?= ((isset($_GET['add']))?'add=1':'edit='.$edit_id) ?>" method="POST"> 
+        <form action="settings.php?<?= isset($_GET['add'])?'add=1':'edit='.$edit_id ?>" method="POST"> 
           <div class="form-group">
             <div class="row">
               <div class="col-md-4 mb-2">
