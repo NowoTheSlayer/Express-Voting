@@ -11,8 +11,8 @@
     while($row = mysqli_fetch_assoc($result_user)):
     $name = $row['firstname'].' '.$row['lastname'];
     $email = $row['email'];
-    $join_date = $row['join_date'];
-    $last_login = $row['last_login'];
+    $join_date = pretty_date($row['join_date']);
+    $last_login = $row['last_login'] ==  NULL?'Never':pretty_date($row['last_login']);
     $permissions = $row['permissions'];
 
     $data = 
