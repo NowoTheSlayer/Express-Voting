@@ -34,7 +34,7 @@
 
     $zero = 0;
     $errors = array();
-    $preset = '0000-00-00 00:00:00';
+    $preset = "NULL";
 
     // EDIT USER
 		if (isset($_GET['edit'])){
@@ -95,7 +95,7 @@
       } else {
         // add user to database
         $hashed = password_hash($password, PASSWORD_DEFAULT);
-        $insertsql = "INSERT INTO users (firstname, lastname, email, password, last_login, permissions, deleted) VALUES ('$firstname', '$lastname', '$email', '$hashed', now(), '$permissions', '$zero')";
+        $insertsql = "INSERT INTO users (firstname, lastname, email, password, last_login, permissions, deleted) VALUES ('$firstname', '$lastname', '$email', '$hashed', $preset, '$permissions', '$zero')";
         // $_SESSION['success_flash'] = 'User has been added';
         $updated = 'added';
 
@@ -235,7 +235,7 @@
                 <td><?= $res['firstname'].' '.$res['lastname']; ?></</td>
                 <td><?= $res['email']; ?></td>
                 <td><?= pretty_date($res['join_date']); ?></td>
-                <td><?= $res['last_login'] == '0000-00-00 00:00:00'?'Never':pretty_date($res['last_login']); ?></td>
+                <td><?= $res['last_login'] == NULL?'Never':pretty_date($res['last_login']); ?></td>
                 <td><span class="badge badge-pill badge-dark"><?= $res['permissions']; ?></span></td>
                 <td>
                   <div class="btn-group btn-group-sm">

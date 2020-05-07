@@ -43,6 +43,7 @@
 	function login($user_id){
 		$_SESSION['User'] = $user_id;
 		global $db;
+		date_default_timezone_set("Africa/Lagos");
 		$date = date("Y-m-d h:i:s");
 		$db->query("UPDATE users SET last_login = '$date' WHERE id = '$user_id'");
 
