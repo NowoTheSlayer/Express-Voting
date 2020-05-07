@@ -1,18 +1,19 @@
 <?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+  
+  if (is_logged_in()){
+		header('Location: index.php');
+  }
+  
   include 'views/head.php';
   // include 'views/navigation.php';
 
-  // if (is_logged_in()){
-	// 	header('Location: index.php');
-  // }
   
   $email = isset($_POST['email'])?sanitize($_POST['email']):'';
   $email = trim($email);
   $password = isset($_POST['password'])?sanitize($_POST['password']):'';
   $password = trim($password);
   $errors = array();
-  $success = array();
 ?>
 
   <div id="content" class="mt-5 pt-5">
