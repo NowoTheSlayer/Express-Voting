@@ -83,7 +83,7 @@
 
         <div class="card-footer">
             <a href="index.php" class="btn btn-block btn-secondary"><span class="fa fa-times-circle"></span> Cancel</a>
-            <input type="submit" class="btn btn-block btn-primary" value="Change">
+            <button type="submit" class="btn btn-block btn-primary"><span class="fa fa-user-lock"></span> Change</button>
           </form>
           <br>
           <p class="float-left"><a target="_blank" href="/Projects/InProgress/Express Vote/index.php" alt="home">Visit Site</a></p>

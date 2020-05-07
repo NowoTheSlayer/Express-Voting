@@ -72,7 +72,7 @@
 ?>
 
 
-      <h1 class="font-weight-bold text-center p-5">Express Vote - Admin Login</h1>
+      <h1 class="font-weight-bold text-center p-5">Express Vote - Admin</h1>
 
       <div class="card container mx-auto border rounded-lg shadow-lg">
         <div class="card-header">
