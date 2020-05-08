@@ -60,10 +60,10 @@
               <a href="#pollSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-poll"></span> Poll</a>
 	            <ul class="collapse list-unstyled" id="pollSubmenu">
                 <li>
-                  <a href="#"><span class="fa fa-plus"></span> Add Poll</a>
+                  <a href="#"><span class="fa fa-eye"></span> View Polls</a>
                 </li>
                 <li>
-                  <a href="#"><span class="fa fa-eye"></span> View Polls</a>
+                  <a href="#"><span class="fa fa-plus"></span> Add Poll</a>
                 </li>
 	            </ul>
             </li>
@@ -76,10 +76,10 @@
 	            <a href="#candidateSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-user-lock"></span> Candidates</a>
 	            <ul class="collapse list-unstyled" id="candidateSubmenu">
                 <li>
-                  <a href="candidates.php?add=1"><span class="fa fa-plus"></span> Add Candidate</a>
+                  <a href="candidates.php"><span class="fa fa-eye"></span> View Candidates</a>
                 </li>
                 <li>
-                  <a href="candidates.php"><span class="fa fa-eye"></span> View Candidates</a>
+                  <a href="candidates.php?add=1"><span class="fa fa-plus"></span> Add Candidate</a>
                 </li>
 	            </ul>
             </li>
@@ -88,10 +88,10 @@
               <a href="#voterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-users"></span> Voters</a>
               <ul class="collapse list-unstyled" id="voterSubmenu">
                 <li>
-                  <a href="voters.php?add=1"><span class="fa fa-plus"></span> Add Voter</a>
+                  <a href="voters.php"><span class="fa fa-eye"></span> View Voters</a>
                 </li>
                 <li>
-                  <a href="voters.php"><span class="fa fa-eye"></span> View Voters</a>
+                  <a href="voters.php?add=1"><span class="fa fa-plus"></span> Add Voter</a>
                 </li>
               </ul>
 	          </li>
