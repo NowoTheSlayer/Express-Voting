@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="20893043-8cfc-445e-b9a5-cdc4d0f771e0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4">
+    <include_path>
+      <path value="/usr/lib/php" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1bvIFZEW4VcnpM5aoEpmU3cECRl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="/usr/lib/php" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="20893043-8cfc-445e-b9a5-cdc4d0f771e0" name="Default Changelist" comment="" />
+      <created>1589506038221</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589506038221</updated>
+      <workItem from="1589506041367" duration="119000" />
+      <workItem from="1589506171577" duration="486000" />
+      <workItem from="1589506677343" duration="127000" />
+      <workItem from="1589506823731" duration="838000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="607" y="207" width="824" height="680" key="#CLI_Interpreters" timestamp="1589507343051">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="607" y="207" width="824" height="680" key="#CLI_Interpreters/0.28.1920.1052@0.28.1920.1052" timestamp="1589507343051" />
+    <state x="271" y="407" width="1367" height="290" key="#SQL_Dialects" timestamp="1589507397231">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="271" y="407" width="1367" height="290" key="#SQL_Dialects/0.28.1920.1052@0.28.1920.1052" timestamp="1589507397231" />
+    <state x="807" y="307" width="424" height="480" key="FileChooserDialogImpl" timestamp="1589507182915">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="807" y="307" width="424" height="480" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1589507182915" />
+    <state x="515" y="182" width="1019" height="734" key="SettingsEditor" timestamp="1589507347187">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="515" y="182" width="1019" height="734" key="SettingsEditor/0.28.1920.1052@0.28.1920.1052" timestamp="1589507347187" />
+    <state x="555" y="290" width="800" height="524" key="Vcs.Push.Dialog.v2" timestamp="1589507632034">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="555" y="290" width="800" height="524" key="Vcs.Push.Dialog.v2/0.28.1920.1052@0.28.1920.1052" timestamp="1589507632034" />
+  </component>
+</project>
