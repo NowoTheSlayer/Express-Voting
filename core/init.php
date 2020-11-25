@@ -1,7 +1,7 @@
 <?php
   $hostName = "localhost";
   $username = "root";
-  $password = "";
+  $password = "mysql";
   $dbname = "expressvote";
 
   $db = new mysqli($hostName, $username, $password, $dbname);
@@ -11,7 +11,7 @@
   }
 
   session_start();
-	require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/config.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/config.php';
 	require_once BASEURL.'helpers/helpers.php';
 
 

@@ -1,5 +1,5 @@
 <?php
-  require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
   
   if (!is_logged_in()){
 		header('Location: index.php');
@@ -86,7 +86,8 @@
             <button type="submit" class="btn btn-block btn-primary"><span class="fa fa-user-lock"></span> Change</button>
           </form>
           <br>
-          <p class="float-left"><a target="_blank" href="/Projects/InProgress/Express Vote/index.php" alt="home">Visit Site</a></p>
+          
+          <p class="float-left"><a target="_blank" href="/Private/Express Vote/index.php" alt="home">Visit Site</a></p>
         </div>
       </div>
 

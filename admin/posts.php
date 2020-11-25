@@ -1,6 +1,6 @@
 <?php
 	ob_start();
-	require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
 	
 	if (!is_logged_in()){
     header('Location: login.php');
@@ -62,7 +62,7 @@
 		if(!empty($errors)){
 			echo display_errors($errors);
 		} else{
-			$sql = "INSERT INTO position (post, deleted) VALUES ('$post', $zero)";
+			$sql = "INSERT INTO position (post, parent, deleted) VALUES ('$post', $zero, $zero)";
 			$updated = 'added';
 
 			if (isset($_GET['edit'])){

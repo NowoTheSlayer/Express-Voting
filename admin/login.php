@@ -1,5 +1,5 @@
 <?php
-  require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
   
   if (is_logged_in()){
 		header('Location: index.php');

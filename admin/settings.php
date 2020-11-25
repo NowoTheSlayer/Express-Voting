@@ -1,6 +1,6 @@
 <?php
   ob_start();
-  require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
   include 'views/head.php';
   include 'views/navigation.php';
 
@@ -244,6 +244,8 @@
                     <a href="settings.php?edit=<?= $user_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span> Edit</a>
                     <a href="settings.php?delete=<?= $user_id; ?>" class="btn btn-sm btn-outline-danger"><span class="fa fa-trash-alt"> Delete</span></a>
                   </div>
+
+                  
                 </td>
               </tr>
               <?php endforeach; ?>

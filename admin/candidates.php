@@ -1,6 +1,6 @@
 <?php
 	ob_start();
-  require_once $_SERVER['DOCUMENT_ROOT'].'/Projects/InProgress/Express Vote/core/init.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
 
   if (!is_logged_in()){
     header('Location: login.php');
@@ -66,9 +66,9 @@
         }
       }
 
-      $sqlExist = "SELECT * FROM candidates WHERE firstname = '$firstname' && lastname = '$lastname'";
+      $sqlExist = "SELECT * FROM candidates WHERE firstname = '$firstname' AND lastname = '$lastname'";
       if (isset($_GET['edit'])){
-        $sqlExist = "SELECT * FROM candidates WHERE firstname = '$firstname' && lastname = '$lastname' AND id != '$edit_id'";
+        $sqlExist = "SELECT * FROM candidates WHERE firstname = '$firstname' AND lastname = '$lastname' AND id != '$edit_id'";
       }
       $rest = $db->query($sqlExist);
       $count = mysqli_num_rows($rest);
@@ -91,7 +91,7 @@
         $allowed = array('png','jpg', 'jpeg', 'gif');
         $uploadName = md5(microtime()). '.' .$fileExt;
         $uploadPath = BASEURL. 'admin/images/uploaded/'.$uploadName;
-        $dbpath = '/Projects/InProgress/Express Vote/admin/images/uploaded/'.$uploadName;
+        $dbpath = '/Private/Express Vote/admin/images/uploaded/'.$uploadName;
         if ($mimeType != 'image') {
           $errors[] = 'The file must be an image.';
         }
@@ -106,6 +106,12 @@
         }
       }
 
+      // Note, still need to resolve foreign key ish
+      $presult = $db->query("SELECT  * FROM position WHERE deleted = '0'");
+      $shhh = mysqli_fetch_assoc($presult);
+      $well = $shhh['post'];
+      $asd = $position == $well?$well:'5';
+
       if (!empty($errors)) {
         echo display_errors($errors);
       } else {
@@ -113,7 +119,9 @@
         if (!empty($_FILES)) {
           move_uploaded_file($tmpLoc,$uploadPath);
         }
-        $sql_DB = "INSERT INTO candidates (position, firstname, lastname, level, gender, image, deleted) VALUES ('$position', '$firstname', '$lastname', '$level', '$gender', '$dbpath', '$zero')";
+      
+
+        $sql_DB = "INSERT INTO candidates (position, firstname, lastname, level, gender, image, parent_id, deleted) VALUES ('$position', '$firstname', '$lastname', '$level', '$gender', '$dbpath', '$asd', '$zero')";
         // $_SESSION['success_flash'] = 'Candidate has been added';
         $updated = 'added';
 
@@ -174,6 +182,7 @@
                   <option value="200"<?= $level == '200'?' selected':''; ?>>200</option>
                   <option value="300"<?= $level == '300'?' selected':''; ?>>300</option>
                   <option value="400"<?= $level == '400'?' selected':''; ?>>400</option>
+                  <option value="500"<?= $level == '500'?' selected':''; ?>>500</option>
                 </select>
               </div>
     
