@@ -23,7 +23,7 @@
   }
 
 	if (isset($_GET['add']) || isset($_GET['edit'])) {
-    $position = isset($_POST['position'])?ucfirst(sanitize($_POST['position'])):'';
+    $parent_id = isset($_POST['parent_id'])?$_POST['parent_id']:'';
 		$firstname = isset($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):'';
     $lastname = isset($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):'';
     $level = isset($_POST['level'])?sanitize($_POST['level']):'';
@@ -45,8 +45,8 @@
         header('Location: candidates.php?edit='.$edit_id);
       }
       
-
-      $position = isset($_POST['position']) && !empty($_POST['position'])?ucfirst(sanitize($_POST['position'])):$candidate['position'];
+      
+      $parent_id = isset($_POST['parent_id']) && !empty($_POST['parent_id'])?$_POST['parent_id']:$candidate['parent_id'];
       $firstname = isset($_POST['firstname']) && !empty($_POST['firstname'])?ucfirst(sanitize($_POST['firstname'])):$candidate['firstname'];
       $lastname = isset($_POST['lastname']) && !empty($_POST['lastname'])?ucfirst(sanitize($_POST['lastname'])):$candidate['lastname'];
       $level = isset($_POST['level']) && !empty($_POST['level'])?sanitize($_POST['level']):$candidate['level'];
@@ -58,7 +58,7 @@
 
     if ($_POST) {
       $errors = array();
-      $required = array('position', 'firstname', 'lastname', 'level', 'gender');
+      $required = array('parent_id', 'firstname', 'lastname', 'level', 'gender');
       foreach($required as $field){
         if ($_POST[$field] == '') {
           $errors[] = 'All Fields With an Asterics are Required.';
@@ -106,12 +106,6 @@
         }
       }
 
-      // Note, still need to resolve foreign key ish
-      $presult = $db->query("SELECT  * FROM position WHERE deleted = '0'");
-      $shhh = mysqli_fetch_assoc($presult);
-      $well = $shhh['post'];
-      $asd = $position == $well?$well:'5';
-
       if (!empty($errors)) {
         echo display_errors($errors);
       } else {
@@ -119,14 +113,13 @@
         if (!empty($_FILES)) {
           move_uploaded_file($tmpLoc,$uploadPath);
         }
-      
 
-        $sql_DB = "INSERT INTO candidates (position, firstname, lastname, level, gender, image, parent_id, deleted) VALUES ('$position', '$firstname', '$lastname', '$level', '$gender', '$dbpath', '$asd', '$zero')";
+        $sql_DB = "INSERT INTO candidates (parent_id, firstname, lastname, level, gender, image, deleted) VALUES ('$parent_id', '$firstname', '$lastname', '$level', '$gender', '$dbpath', '$zero')";
         // $_SESSION['success_flash'] = 'Candidate has been added';
         $updated = 'added';
 
         if (isset($_GET['edit'])) {
-          $sql_DB = "UPDATE candidates SET position = '$position', firstname = '$firstname', lastname = '$lastname', level = '$level', gender = '$gender', image = '$dbpath', deleted = '$zero' WHERE  id = '$edit_id'";
+          $sql_DB = "UPDATE candidates SET parent_id = '$parent_id', firstname = '$firstname', lastname = '$lastname', level = '$level', gender = '$gender', image = '$dbpath', deleted = '$zero' WHERE  id = '$edit_id'";
           $updated = 'updated';
           // $_SESSION['success_flash'] = 'Candidate has been updated';
         }
@@ -152,14 +145,14 @@
             <div class="row">
               <div class="col-md-4 mb-2">
                 <label>Position *:</label>
-                <select id="position" name="position" class="custom-select">
-                  <option value=""<?= $position == ''?' selected':''; ?>></option>
+                <select id="parent_id" name="parent_id" class="custom-select">
+                  <option value=""<?= $parent_id == ''?' selected':''; ?>></option>
                   <?php 
                     $sql_post = "SELECT * FROM position WHERE deleted = 0";
                     $result_post = $db->query($sql_post);
                     foreach ($result_post as $cand):
                   ?>
-                    <option value="<?= $cand['post']; ?>"<?= $position == $cand['post']?' selected':''; ?>><?= $cand['post']; ?></option>
+                    <option value="<?= $cand['parent_id']; ?>"<?= $parent_id == $cand['parent_id']?' selected':''; ?>><?= $cand['post']; ?></option>
                     <?php endforeach; ?>
                 </select>
               </div>
@@ -230,8 +223,7 @@
 <?php
   } 
   else {
-    $sql_candid = "SELECT * FROM candidates WHERE deleted = 0";
-    $result_candid = $db->query($sql_candid);
+    $sql_candid = $db->query("SELECT c.*, p.* FROM candidates c, position p WHERE c.parent_id = p.parent_id AND c.deleted = p.deleted");
 ?>
 
   <div class="container" style="position: relative">
@@ -272,12 +264,12 @@
   
             <tbody>
             <?php
-              foreach ($result_candid as $res):
+              while ($res = mysqli_fetch_assoc($sql_candid)):
               $candid_id = $res['id'];
             ?>
               <tr>
                 <td><?= $i++; ?></td>
-                <td><?= $res['position']; ?></td>
+                <td><?= $res['post']; ?></td>
                 <td><?= $res['firstname'].' '.$res['lastname']; ?></</td>
                 <td><?= $res['level']; ?></td>
                 <td><?= $res['gender']; ?></td>
@@ -291,7 +283,7 @@
                   </div>
                 </td>
               </tr>
-              <?php endforeach; ?>
+              <?php endwhile; ?>
             </tbody>
           </table>
         </div>

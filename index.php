@@ -2,20 +2,6 @@
 
   ob_start();
   require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
-
-  // $sqlPost = "SELECT * FROM position";
-  // $resultPost = $db->query($sqlPost);
-
-  // $sqlCan = "SELECT * FROM candidates";
-  // $resultCan = $db->query($sqlCan);
-
-  // $sql = "SELECT
-  //         CONCAT(candidates.firstname,' ',candidates.lastname) AS name,
-  //         position.post
-  //         FROM candidates
-  //         INNER JOIN position
-  //         ON candidates.position = position.post";
-  // $sqlDB = $db->query($sql);
 ?>
   <h1 class="font-weight-bold text-center p-5">HOMEPAGE</h1>
 
@@ -35,14 +21,15 @@
                 $cresult = $db->query("SELECT * FROM candidates WHERE parent_id = '$parent_id' AND deleted = '0'");
             ?>
 
-              <div class="col-lg-3 col-md-4 mb-5">
-                <h3><?= $parent['post']; ?></h3>
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
+                <h3 class="ml-3"><?= $parent['post']; ?></h3>
                 <?php 
                   while ($child = mysqli_fetch_assoc($cresult)) : 
                     $name = $child['firstname']. ' ' . $child['lastname'];
                 ?>
-                <div class="card bg-info mb-2 text-center">
+                <div class="card bg-info mb-2 py-2 text-center">
                   <p class="card-text"><?= $name; ?></p>
+                  <img src="<?=$child['image']; ?>" class="rounded-circle mx-auto d-block" style="width: 150px; height:150px;" alt="Image">
                 </div>
                 <?php endwhile;?>
               </div>
