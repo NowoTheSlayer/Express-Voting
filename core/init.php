@@ -15,20 +15,22 @@
 	require_once BASEURL.'helpers/helpers.php';
 
 
-	if (isset($_SESSION['User'])) {
-		$user_id = $_SESSION['User'];
-		$query = $db->query("SELECT * FROM users WHERE id = '$user_id'");
-		$user_data = mysqli_fetch_assoc($query);
+  // Admin Session
+	if (isset($_SESSION['Admin'])) {
+		$adminSession = $_SESSION['Admin'];
+		$query = $db->query("SELECT * FROM users WHERE id = '$adminSession'");
+		$admin_data = mysqli_fetch_assoc($query);
 		// $fn = explode(' ', $user_data['full_name']);
 		// $user_data['first'] = $fn[0];
 		// $user_data['last'] = $fn[1];
 	}
   
-  // if(isset($_SESSION['Voter'])){
-  //   $voter_id = $_SESSION['Voter'];
-  //   $query = $db->query("SELECT * FROM voters WHERE id = '$voter_id'");
-	// 	$voter_data = mysqli_fetch_assoc($query);
-	// }
+  // Voter Session
+  if(isset($_SESSION['Voter'])){
+    $voterSession = $_SESSION['Voter'];
+    $query = $db->query("SELECT * FROM voters WHERE id = '$voterSession'");
+		$voter_data = mysqli_fetch_assoc($query);
+	}
 	// else{
 	// 	header('location: index.php');
 	// 	exit();

@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="dist/css/all.css">
     <!--    <link rel="stylesheet" href="../css/style.min.css">-->
-    
-  	<!-- Bootstrap 3.3.7 -->
+
   	<!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="plugins/iCheck/all.css">
@@ -61,7 +60,3 @@
       }
     </style>	
   </head>
-
-  <body>
-
-  <main class="container">
