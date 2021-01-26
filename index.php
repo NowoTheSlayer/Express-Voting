@@ -26,17 +26,25 @@
                 <?php 
                   while ($child = mysqli_fetch_assoc($cresult)) : 
                     $name = $child['firstname']. ' ' . $child['lastname'];
+                    $idd = $child['id']
                 ?>
                 <div class="card bg-info mb-2 py-2 text-center">
                   <p class="card-text"><?= $name; ?></p>
-                  <img src="<?=$child['image']; ?>" class="rounded-circle mx-auto d-block" style="width: 150px; height:150px;" alt="Image">
+                  <!-- <img src="<?=$child['image']; ?>" class="rounded-circle mx-auto d-block" style="width: 150px; height:150px;" alt="Image"> -->
+                  <br>
+                  <!-- <form action=""> -->
+                    <div class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input" id="vote_<?= $idd;?>" name="voteVal" value="<?= $idd; ?>">
+                      <!-- <label class="custom-control-label" for="vote_<?= $idd;?>">Vote</label> -->
+                    </div>
+                  <!-- </form> -->
                 </div>
                 <?php endwhile;?>
               </div>
 
             <?php endwhile; ?>
             </div>
-            
+
         </div>
       </div>
 

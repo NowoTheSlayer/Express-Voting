@@ -5,11 +5,10 @@
 
 
   if(isset($candy) and !empty($candy)){
-    $sql_candid = "SELECT * FROM candidates WHERE deleted = 0 AND id = $candy";
-    $result_candid = $db->query($sql_candid);
+    $result_candid = $db->query("SELECT c.*, p.* FROM candidates c, position p WHERE c.parent_id = p.parent_id AND c.deleted = p.deleted AND id = $candy");
 
     while($row = mysqli_fetch_assoc($result_candid)):
-    $position = $row['position'];
+    $position = $row['post'];
     $name = $row['firstname'].' '.$row['lastname'];
     $level = $row['level'];
     $gender = $row['gender'];

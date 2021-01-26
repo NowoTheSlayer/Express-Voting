@@ -1,7 +1,7 @@
 <?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
 
-  if (!is_logged_in()){
+  if (!isadmin_logged_in()){
     header('Location: login.php');
   }
 

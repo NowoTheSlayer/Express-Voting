@@ -11,7 +11,6 @@
     while($row = mysqli_fetch_assoc($result_voter)):
     $name = $row['firstname'].' '.$row['lastname'];
     $voters_id = $row['voters_id'];
-    $voters_key = $row['pwd'];
     $email = $row['email'];
     $status = $row['status'];
 
@@ -26,11 +25,7 @@
           <tr>
             <th>Voters ID :</th>
             <td>'.$voters_id.'</td>            
-          </tr>            
-          <tr>
-            <th>Voters KEY :</th>
-            <td>'.$voters_key.'</td>            
-          </tr> 
+          </tr>      
           <tr>
             <th>Email :</th>
             <td>'.$email.'</td>            

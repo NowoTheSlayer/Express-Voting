@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Express Vote.iml" filepath="$PROJECT_DIR$/.idea/Express Vote.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../votesystem/.idea/votesystem.iml" filepath="$PROJECT_DIR$/../votesystem/.idea/votesystem.iml" />
     </modules>
   </component>
 </project>

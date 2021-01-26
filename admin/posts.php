@@ -2,7 +2,7 @@
 	ob_start();
 	require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
 	
-	if (!is_logged_in()){
+	if (!isadmin_logged_in()){
     header('Location: login.php');
 	}
 	
@@ -34,11 +34,13 @@
 		$ePost = mysqli_fetch_assoc($eresult);
 
 		$post_value = isset($_POST['post'])?ucfirst(sanitize($_POST['post'])):$ePost['post'];
+		$maxvote_val = isset($_POST['max_vote'])?$_POST['max_vote']:$ePost['max_vote'];
 	}
 
 
 	if (isset($_POST['add_submit'])){
 		$post = ucfirst(sanitize($_POST['post']));
+		$max_vote = ($_POST['max_vote']);
 		$zero = 0;
 
 		//check if position is blank
@@ -62,11 +64,11 @@
 		if(!empty($errors)){
 			echo display_errors($errors);
 		} else{
-			$sql = "INSERT INTO position (post, parent, deleted) VALUES ('$post', $zero, $zero)";
+			$sql = "INSERT INTO position (post, max_vote, deleted) VALUES ('$post', $max_vote, $zero)";
 			$updated = 'added';
 
 			if (isset($_GET['edit'])){
-				$sql = "UPDATE position SET post = '$post' WHERE  id = '$edit_id'";
+				$sql = "UPDATE position SET post = '$post', max_vote = '$max_vote' WHERE  id = '$edit_id'";
 				$updated = 'updated';
 			}
 
@@ -94,6 +96,8 @@
 							<div class="text-center">
 								
 								<input type="text" name="post" id="post" class="form-control text-capitalize mb-2 mr-sm-2" value="<?= $post_value; ?>">
+
+								<input type="number" name="max_vote" class="form-control mb-2" placeholder="Max Vote" value="<?= $maxvote_val; ?>">
 	
 								<?= isset($_GET['edit'])?'<a href="posts.php" class="btn btn-secondary mb-2 mr-sm-2"><i class="fa fa-times-circle mr-2"></i>Cancel</a>':''; ?>
 								<button type="submit" name="add_submit" class="btn btn-success mb-2"><?= isset($_GET['edit'])?'<span class="fa fa-pen-fancy mr-2"></span>Edit':'<span class="fa fa-plus-circle mr-2"></span>Add'; ?> Post</button>
@@ -108,23 +112,26 @@
 					<table class="table table-borderless table-striped table-hover" id="dataTable">
 						<thead>
 							<th></th>
-							<th>Brand</th>
+							<th>Post</th>
+							<th>Maximum Vote</th>
 							<th>Action</th>
 						</thead>
 						<tfoot>
 							<th></th>
-							<th>Brand</th>
+							<th>Post</th>
+							<th>Maximum Vote</th>
 							<th>Action</th>
 						</tfoot>
 
 						<tbody>
 						<?php 
 							foreach ($result as $res): 
-							$post_id = $res['id'];		
+							$post_id = $res['parent_id'];		
 						?>
 							<tr>
 								<td><?= $i++; ?></td>
 								<td><?= $res['post']; ?></td>
+								<td><?= $res['max_vote']; ?></td>
 								<td>
 									<div class="btn-group btn-group-sm">
 										<a href="posts.php?edit=<?= $post_id; ?>" class="btn btn-sm btn-outline-primary mr-2"><span class="fa fa-pen-fancy"></span> Edit</a>

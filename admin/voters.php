@@ -2,7 +2,7 @@
   ob_start();
   require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
 
-  if (!is_logged_in()){
+  if (!isadmin_logged_in()){
     header('Location: login.php');
   }
   
@@ -77,12 +77,13 @@
       if (!empty($errors)) {
         echo display_errors($errors);
       } else {
-        $sql_DB = "INSERT INTO voters (voters_id, firstname, lastname, email, pwd, status, deleted) VALUES ('$voters_id', '$firstname', '$lastname', '$email', '$pwd', '$status', '$zero')";
+        $hashed = password_hash($pwd, PASSWORD_DEFAULT);
+        $sql_DB = "INSERT INTO voters (voters_id, firstname, lastname, email, pwd, status, deleted) VALUES ('$voters_id', '$firstname', '$lastname', '$email', '$hashed', '$status', '$zero')";
         // $_SESSION['success_flash'] = 'Voter has been added';
         $updated = 'added';
 
         if (isset($_GET['edit'])) {
-          $sql_DB = "UPDATE voters SET voters_id = '$voters_id', firstname = '$firstname', lastname = '$lastname', email = '$email', pwd = '$pwd', status = '$status', deleted = '$zero' WHERE  id = '$edit_id'";
+          $sql_DB = "UPDATE voters SET voters_id = '$voters_id', firstname = '$firstname', lastname = '$lastname', email = '$email', pwd = '$hashed', status = '$status', deleted = '$zero' WHERE  id = '$edit_id'";
           $updated = 'updated';
           // $_SESSION['success_flash'] = 'Voter has been updated';
         }
@@ -146,13 +147,13 @@
                   <input type="text" class="form-control" name="pwd" id="pwd" value="<?= $pwd; ?>"<?= isset($_GET['edit'])?' readonly':''; ?>>
                   <div class="input-group-append">
                     <!-- ENABLE BUTTONS -->
-                    <!-- <button type="button" class="btn btn-info ass" onclick="getElementById('pwd').value='<?= $gen_key; ?>'"><i class="fa fa-sync-alt"></i></button>  
-                    <button type="button" class="btn btn-danger" onclick="document.getElementById('pwd').value = ''"><i class="fa fa-backspace"></i></button>   -->
+                    <button type="button" class="btn btn-info ass" onclick="getElementById('pwd').value='<?= $gen_key; ?>'"><i class="fa fa-sync-alt"></i></button>  
+                    <button type="button" class="btn btn-danger" onclick="document.getElementById('pwd').value = ''"><i class="fa fa-backspace"></i></button>  
                     <!-- ENABLE BUTTONS -->
     
                     <!-- DISABLE BUTTONS -->
-                    <button type="button" class="btn btn-info ass"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="getElementById('pwd').value='<?= $gen_key; ?>'"><i class="fa fa-sync-alt"></i></button>  
-                    <button type="button" class="btn btn-danger"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="document.getElementById('pwd').value = ''"><i class="fa fa-backspace"></i></button>  
+                    <!-- <button type="button" class="btn btn-info ass"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="getElementById('pwd').value='<?= $gen_key; ?>'"><i class="fa fa-sync-alt"></i></button>  
+                    <button type="button" class="btn btn-danger"<?= isset($_GET['edit'])?' disabled':''; ?> onclick="document.getElementById('pwd').value = ''"><i class="fa fa-backspace"></i></button>   -->
                     <!-- DISABLE BUTTONS -->
                   </div>
                 </div>
@@ -200,7 +201,7 @@
                 <th></th>
                 <th>Name</th>
                 <th>Voters ID</th>
-                <th>Voters KEY</th>
+                <!-- <th>Voters KEY</th> -->
                 <th>Email</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -211,7 +212,7 @@
                 <th></th>
                 <th>Name</th>
                 <th>Voters ID</th>
-                <th>Voters KEY</th>
+                <!-- <th>Voters KEY</th> -->
                 <th>Email</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -227,7 +228,7 @@
                 <td><?= $i++; ?></td>
                 <td><?= $res['firstname'].' '.$res['lastname']; ?></</td>
                 <td><?= $res['voters_id']; ?></td>
-                <td><?= $res['pwd']; ?></td>
+                <!-- <td><?= $res['pwd']; ?></td> -->
                 <td><?= $res['email']; ?></td>
                 <td><?= $res['status']; ?></td>
                 <td>

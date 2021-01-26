@@ -1,7 +1,7 @@
 <?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
   
-  if (is_logged_in()){
+  if (isadmin_logged_in()){
 		header('Location: index.php');
   }
   
@@ -10,9 +10,7 @@
 
   
   $email = isset($_POST['email'])?sanitize($_POST['email']):'';
-  $email = trim($email);
   $password = isset($_POST['password'])?sanitize($_POST['password']):'';
-  $password = trim($password);
   $errors = array();
 ?>
 
@@ -45,17 +43,17 @@
 
     // check if email exists in the database
     $query = $db->query("SELECT * FROM users WHERE email = '$email'");
-    $user = mysqli_fetch_assoc($query);
-    $userCount = mysqli_num_rows($query);
+    $result = mysqli_fetch_assoc($query);
+    $resultCount = mysqli_num_rows($query);
 
     if (!empty($_POST['email'])) {
-      if ($userCount == 0) {
+      if ($resultCount == 0) {
         $errors[] = 'Email doesn\'t exist in our database.';
       }
     }
 
     if (!empty($_POST['password'])) {
-      if(!password_verify($password, $user['password'])){
+      if(!password_verify($password, $result['password'])){
         $errors[] = 'Invalid password. Try again.';
       }
     }
@@ -65,8 +63,8 @@
       echo display_errors($errors);
     } else {
       //Log User in
-      $user_id = $user['id'];
-      login($user_id);
+      $adminSession = $result['id'];
+      loginAdmin($adminSession);
     }
   }
 ?>
@@ -83,12 +81,12 @@
           <form action="login.php" method="POST">
             <div class="form-group">
               <label for="email">Email:</label>
-              <input type="email" class="form-control" name="email" id="email" value="<?= $email; ?>" required>
+              <input type="email" class="form-control" name="email" id="email" value="<?= $email; ?>" >
             </div>
     
             <div class="form-group">
               <label for="password">Password:</label>
-              <input type="password" class="form-control" name="password" id="password" required>
+              <input type="password" class="form-control" name="password" id="password" >
             </div>
     
             <div class="custom-control custom-checkbox mb-3">
@@ -101,7 +99,7 @@
             <input type="submit" class="btn btn-block btn-primary" value="Login">
           </form>
           <br>
-          <p class="float-left"><a target="_blank" href="/Projects/InProgress/Express Vote/index.php" alt="home">Visit Site</a></p>
+          <p class="float-left"><a target="_blank" href="/Private/Express Vote/index.php" alt="home">Visit Site</a></p>
         </div>
       </div>
 

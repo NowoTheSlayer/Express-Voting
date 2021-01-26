@@ -1,7 +1,7 @@
 <?php
   $hostName = "localhost";
   $username = "root";
-  $password = "mysql";
+  $password = "";
   $dbname = "expressvote";
 
   $db = new mysqli($hostName, $username, $password, $dbname);
@@ -23,13 +23,15 @@
 		// $user_data['first'] = $fn[0];
 		// $user_data['last'] = $fn[1];
 	}
-	// if (isset($_SESSION['user'])) {
-	// 	$user_idd = $_SESSION['user'];
-	// 	$query = $db->query("SELECT * FROM users WHERE id = '$user_idd'");
-	// 	$user_data = mysqli_fetch_assoc($query);
-	// 	$fn = explode(' ', $user_data['full_name']);
-	// 	$user_data['first'] = $fn[0];
-	// 	$user_data['last'] = $fn[1];
+  
+  // if(isset($_SESSION['Voter'])){
+  //   $voter_id = $_SESSION['Voter'];
+  //   $query = $db->query("SELECT * FROM voters WHERE id = '$voter_id'");
+	// 	$voter_data = mysqli_fetch_assoc($query);
+	// }
+	// else{
+	// 	header('location: index.php');
+	// 	exit();
 	// }
 
 	if (isset($_SESSION['success_flash'])) {
@@ -56,5 +58,6 @@
     echo    '</div>';
     echo '</div>';
     unset($_SESSION['error_flash']);
-	}
+  }
+
 ?>

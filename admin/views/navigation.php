@@ -111,7 +111,7 @@
             </li>
 
             <li>
-              <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-user-alt"></span> Hello <?= $user_data['firstname']; ?></a>
+              <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-user-alt"></span> Hello <?= $admin_data['firstname']; ?></a>
               <ul class="collapse list-unstyled" id="profileSubmenu">
                 <li>
                   <a href="change_password.php"><span class="fa fa-key"></span> Change Password</a>
