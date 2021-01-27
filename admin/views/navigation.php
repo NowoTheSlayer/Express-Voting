@@ -87,6 +87,8 @@
                 </li>
               </ul>
 	          </li>
+
+            <li class="active"><a href="ballot.php"><span class="fa fa-file"></span> Preview Ballot</a></li>
            
             <?php if(has_permission('Admin')): ?>
               <li>
