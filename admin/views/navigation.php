@@ -56,16 +56,8 @@
 	            <a href="index.php"><span class="fa fa-house-user"></span> Dashboard</a>
             </li>
 
-            <li>
-              <a href="#pollSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-poll"></span> Poll</a>
-	            <ul class="collapse list-unstyled" id="pollSubmenu">
-                <li>
-                  <a href="#"><span class="fa fa-eye"></span> View Polls</a>
-                </li>
-                <li>
-                  <a href="#"><span class="fa fa-plus"></span> Add Poll</a>
-                </li>
-	            </ul>
+            <li class="active">
+	            <a href="votes.php"><span class="fa fa-house-user"></span> Votes</a>
             </li>
 
             <li>

@@ -83,11 +83,12 @@
 
 
   <div class="container">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+      <li class="breadcrumb-item" class="active">Posts</li>
+    </ul>
 		<div class="card rounded-lg" id="outline">
 			<div class="card-header">
-				<h2 class="font-weight-bold text-center">Posts</h2>
-
-				<hr>
 
 				<div class="d-flex justify-content-center">
 					<form class="form-inline" action="posts.php<?= isset($_GET['edit'])?'?edit='.$edit_id:'' ?>" method="POST">

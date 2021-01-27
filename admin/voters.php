@@ -34,7 +34,7 @@
     $email = isset($_POST['email'])?sanitize($_POST['email']):'';
     $pwd = isset($_POST['pwd'])?sanitize($_POST['pwd']):'';
     // $status = isset($_POST['status']) && !empty($_POST['status'])?ucfirst(sanitize($_POST['status'])):'';
-    $status = 'Not Voted';
+    $status = 0;
 
     $zero = 0;
     $errors = array();
@@ -184,12 +184,13 @@
 ?>
 
 <div class="container" style="position: relative">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+      <li class="breadcrumb-item" class="active">Voters</li>
+    </ul>
+
     <div class="card rounded-lg shadow-lg" id="outline">
       <div class="card-header">
-        <h1 class="font-weight-bolder text-center">Voters List</h1>
-
-        <hr>
-        
         <a href="voters.php?add=1" class="btn btn-block btn-success"><i class="fa fa-user-plus mr-2"></i>Add Voter</a>
       </div>
       
@@ -230,7 +231,7 @@
                 <td><?= $res['voters_id']; ?></td>
                 <!-- <td><?= $res['pwd']; ?></td> -->
                 <td><?= $res['email']; ?></td>
-                <td><?= $res['status']; ?></td>
+                <td><?= $res['status'] == 0 ? 'Not Voted' : 'Voted'; ?></td>
                 <td>
                   <div class="btn-group btn-group-sm">
                     <button type="button" class="btn btn-sm btn-outline-success mr-2 view_voter_data" data-id="<?= $voter_id; ?>"><span class="fa fa-eye"></span> View</button>

@@ -227,12 +227,12 @@
 ?>
 
   <div class="container" style="position: relative">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+      <li class="breadcrumb-item" class="active">Candidates</li>
+    </ul>
     <div class="card rounded-lg shadow-lg" id="outline">
       <div class="card-header">
-        <h1 class="font-weight-bolder text-center">Candidates List</h1>
-
-        <hr>
-        
         <a href="candidates.php?add=1" class="btn btn-block btn-success"><i class="fa fa-user-plus mr-2"></i>Add Candidate</a>
       </div>
 
