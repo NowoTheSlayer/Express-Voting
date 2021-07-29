@@ -1,3 +1,3 @@
 <?php
-	define('BASEURL', $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/');
+	define('BASEURL', $_SERVER['DOCUMENT_ROOT'].'/');
 ?>

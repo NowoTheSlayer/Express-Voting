@@ -11,7 +11,7 @@
   }
 
   session_start();
-	require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/config.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/config.php';
 	require_once BASEURL.'helpers/helpers.php';
 
 
