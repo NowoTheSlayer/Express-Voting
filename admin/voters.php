@@ -1,6 +1,6 @@
 <?php
   ob_start();
-  require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/core/init.php';
 
   if (!isadmin_logged_in()){
     header('Location: login.php');

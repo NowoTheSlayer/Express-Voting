@@ -1,6 +1,6 @@
 <?php
 	ob_start();
-  require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/core/init.php';
 
   if (!isadmin_logged_in()){
     header('Location: login.php');
@@ -270,7 +270,7 @@
               <tr>
                 <td><?= $i++; ?></td>
                 <td><?= $res['post']; ?></td>
-                <td><?= $res['firstname'].' '.$res['lastname']; ?></</td>
+                <td><?= $res['firstname'].' '.$res['lastname']; ?></td>
                 <td><?= $res['level']; ?></td>
                 <td><?= $res['gender']; ?></td>
                 <td><img src="<?= $res['image']; ?>" class="img-thumbnail" style="width: 100px; height:100px;" alt="Image"></td>

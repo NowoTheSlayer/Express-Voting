@@ -1,5 +1,5 @@
 <?php
-  require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/core/init.php';
   
   if (!isadmin_logged_in()){
 		header('Location: index.php');
@@ -87,7 +87,7 @@
           </form>
           <br>
           
-          <p class="float-left"><a target="_blank" href="/Private/Express Vote/index.php" alt="home">Visit Site</a></p>
+          <p class="float-left"><a target="_blank" href="/index.php" alt="home">Visit Site</a></p>
         </div>
       </div>
 

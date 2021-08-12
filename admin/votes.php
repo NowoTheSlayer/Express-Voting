@@ -1,6 +1,6 @@
 <?php
 ob_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Private/Express Vote/core/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/init.php';
 
 if (!isadmin_logged_in()) {
   header('Location: login.php');
@@ -15,7 +15,7 @@ include 'views/navigation.php';
   <section class="content-header">
     <ul class="breadcrumb">
       <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
-      <li class="breadcrumb-item" class="active">Votes</li>
+      <li class="breadcrumb-item active">Votes</li>
     </ul>
   </section>
 
@@ -43,7 +43,6 @@ include 'views/navigation.php';
                 <th>Voter</th>
               </tr>
             </tfoot>
-
             <tbody>
               <?php
               $sql = $db->query("SELECT *, candidates.firstname AS canfirst, candidates.lastname AS canlast, voters.firstname AS votfirst, voters.lastname AS votlast FROM votes LEFT JOIN position ON position.parent_id=votes.position_id LEFT JOIN candidates ON candidates.id=votes.candidate_id LEFT JOIN voters ON voters.id=votes.voters_id");

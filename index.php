@@ -30,7 +30,7 @@ if (isset($_SESSION['Voter'])) {
       <form action="login.php" method="POST">
         <div class="form-group">
           <label for="voters_id">Voter ID:</label>
-          <input type="text" class="form-control" name="voters_id" id="voters_id" value="<?= $voter; ?>">
+          <input type="text" class="form-control" name="voters_id" id="voters_id">
         </div>
 
         <div class="form-group">

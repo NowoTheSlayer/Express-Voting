@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Private/Express Vote/core/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/init.php';
 // include 'views/head.php';
 
 

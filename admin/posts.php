@@ -1,6 +1,6 @@
 <?php
 	ob_start();
-	require_once $_SERVER['DOCUMENT_ROOT'].'/Private/Express Vote/core/init.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/core/init.php';
 	
 	if (!isadmin_logged_in()){
     header('Location: login.php');
@@ -85,7 +85,7 @@
   <div class="container">
     <ul class="breadcrumb">
       <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
-      <li class="breadcrumb-item" class="active">Posts</li>
+      <li class="breadcrumb-item active">Posts</li>
     </ul>
 		<div class="card rounded-lg" id="outline">
 			<div class="card-header">
@@ -127,7 +127,7 @@
 						<tbody>
 						<?php 
 							foreach ($result as $res): 
-							$post_id = $res['parent_id'];		
+							$post_id = $res['id'];
 						?>
 							<tr>
 								<td><?= $i++; ?></td>

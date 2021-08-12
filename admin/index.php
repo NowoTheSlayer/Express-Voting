@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Private/Express Vote/core/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/init.php';
 
 if (!isadmin_logged_in()) {
   header('Location: login.php');
@@ -56,7 +56,7 @@ include 'views/navigation.php';
     <div class="card bg-danger">
       <div class="card-body text-center">
         <?php
-        $query = $db->query("SELECT * FROM votes GROUP BY voters_id");
+        $query = $db->query("SELECT * FROM voters WHERE status = 'Voted'");
         echo '<h3 class="text-light">' . mysqli_num_rows($query) . "</h3>";
         ?>
         <p class="card-text">Voters Voted</p>
